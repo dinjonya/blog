@@ -36,7 +36,7 @@ namespace Authen.Models
             // authenModel client pwd   6bb3b0ad17ea7e9ce4565a2fe17280db
             InvokerAuthen_DbModel authenModel = new InvokerAuthen_DbModel 
             { 
-                ProjcetName="authenModel",
+                ProjcetName="authen",
                 Invoker="99493a7f911e4e1aa5af957851fe8383", //  Guid.NewGuid().ToString("N")
                 Sale = "jAxNzA5MTQxODIyMjE=",               //  dt.ToString("yyyyMMddHHmmss").SubString(1)
                 Key = "c0563cfe53dd6ef2419d04d277bbc5dc"    //  (clientPwd+Sal).StringToMd5ToLower()

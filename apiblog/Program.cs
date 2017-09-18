@@ -33,7 +33,7 @@ namespace apiblog
         public static void GetConfig()
         {
             GetAuthen();
-            ApiResultModel apiResult = ApiHelper.GetWebApi<ApiResultModel>("http://0.0.0.0:16060/","api1.0/Config",AuthenInfo);
+            ApiResultModel apiResult = ApiHelper.GetWebApi<ApiResultModel>("http://0.0.0.0:16060/","Authen/api1.0/Config",AuthenInfo);
             if(!apiResult.Value.Status)
             {
                 System.Console.WriteLine("配置服务器无法返回配置信息，当前服务无法启动");

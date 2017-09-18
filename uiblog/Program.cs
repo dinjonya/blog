@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using CorePlugs20.Authen;
 using CorePlugs20.Models;
 using CorePlugs20.WebApi;
 using Microsoft.AspNetCore;
@@ -15,6 +16,7 @@ namespace uiblog
 {
     public class Program
     {
+        public static Dictionary<string,string> AuthenInfo = AuthenHelper.GetAuthenInfo();
         private static  IConfigurationRoot mainConfig = null;
         private static ConfigModel config = null;
         public static ConfigModel Config 
@@ -29,7 +31,7 @@ namespace uiblog
         public static void GetConfig()
         {
             ApiResultModel apiResult = null;
-            apiResult = ApiHelper.GetWebApi<ApiResultModel>("http://0.0.0.0:16060/","api1.0/Config");
+            apiResult = ApiHelper.GetWebApi<ApiResultModel>("http://0.0.0.0:16060/","Authen/api1.0/Config",AuthenInfo);
             if(!apiResult.Value.Status)
             {
                 System.Console.WriteLine("配置服务器无法返回配置信息，当前服务无法启动");

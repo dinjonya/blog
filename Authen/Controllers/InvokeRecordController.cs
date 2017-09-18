@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace Authen.Controllers
 {
-    [Route("api1.0/[controller]")]
+    [Route("Authen/api1.0/[controller]")]
     public class InvokeRecordController : Controller
     {
         AuthenEntities db;
@@ -18,7 +18,7 @@ namespace Authen.Controllers
             db = _db;
         }
         /*
-        接口路径: api1.0/InvokeRecord/dbsave
+        接口路径: Authen/api1.0/InvokeRecord/dbsave
         请求方式: Post
         输入参数: Json格式
         InvokeRecordModel对象

@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 
 namespace Authen.Controllers
 {
-    [Route("api1.0/[controller]")]
+    [Route("Authen/api1.0/[controller]")]
 
     public class AuthenTokenController : Controller
     {
@@ -27,7 +27,7 @@ namespace Authen.Controllers
 
 
         /*
-        接口路径: api1.0/AuthenToken/{AuthenKey}
+        接口路径: Authen/api1.0/{AuthenKey}
         请求方式: Get
         输入参数: {AuthenKey}  请求的Key
         接口返回: Json格式

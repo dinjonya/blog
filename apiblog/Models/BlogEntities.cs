@@ -15,6 +15,10 @@ namespace apiblog.Models
         public DbSet<Tag_DbModel> Tags { get; set; }
 
         public DbSet<BlogConfig_DbModel> BlogConfigs { get; set; }
+
+        public DbSet<PageView_DbModel> PV { get; set; }
+
+        public DbSet<UserView_DbModel> UV { get; set; }
         
     }
 }

@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace Authen.Controllers
 {
-    [Route("api1.0/[controller]")]
+    [Route("Authen/api1.0/[controller]")]
 
     public class ConfigController : Controller
     {
@@ -19,7 +19,7 @@ namespace Authen.Controllers
         
         
         /*
-        接口路径: api1.0/Config
+        接口路径: Authen/api1.0/Config
         请求方式: Get
         输入参数: 无
         接口返回: Json格式
@@ -46,7 +46,7 @@ namespace Authen.Controllers
         }
 
         /*
-        接口路径: api1.0/Config/Reload
+        接口路径: Authen/api1.0/Config/Reload
         请求方式: Get
         输入参数: 无        
         接口返回: Json格式
