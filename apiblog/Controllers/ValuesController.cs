@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace apiblog.Controllers
 {
-    
+    /// <summary>
+    /// 测试一下
+    /// </summary>
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
