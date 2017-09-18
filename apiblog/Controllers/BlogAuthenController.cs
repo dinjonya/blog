@@ -7,9 +7,11 @@ namespace apiblog.Controllers
     public class BlogAuthenController : Controller
     {
         /*
-        接口路径: api1.0/apiblog/blogauthen/puv/{pagePath}
+        接口路径: api1.0/apiblog/blogauthen/puv/{pagePath}/{rnd}
         请求方式: get
-        输入参数: pagePath 页面路径
+        输入参数: 
+        1.pagePath:页面路径
+        2.rnd:防冲突参数
         接口返回: Json格式
         {
             Status = true,  // true 业务逻辑成功 false失败
