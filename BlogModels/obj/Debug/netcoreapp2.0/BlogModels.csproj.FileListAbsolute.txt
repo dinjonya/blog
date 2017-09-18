@@ -1,9 +1,0 @@
-/me/myblog/dinblog/BlogModels/bin/Debug/netcoreapp2.0/BlogModels.deps.json
-/me/myblog/dinblog/BlogModels/bin/Debug/netcoreapp2.0/BlogModels.dll
-/me/myblog/dinblog/BlogModels/bin/Debug/netcoreapp2.0/BlogModels.pdb
-/me/myblog/dinblog/BlogModels/obj/Debug/netcoreapp2.0/BlogModels.csprojResolveAssemblyReference.cache
-/me/myblog/dinblog/BlogModels/obj/Debug/netcoreapp2.0/BlogModels.csproj.CoreCompileInputs.cache
-/me/myblog/dinblog/BlogModels/obj/Debug/netcoreapp2.0/BlogModels.AssemblyInfoInputs.cache
-/me/myblog/dinblog/BlogModels/obj/Debug/netcoreapp2.0/BlogModels.AssemblyInfo.cs
-/me/myblog/dinblog/BlogModels/obj/Debug/netcoreapp2.0/BlogModels.dll
-/me/myblog/dinblog/BlogModels/obj/Debug/netcoreapp2.0/BlogModels.pdb
