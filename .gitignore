@@ -1,17 +1,17 @@
-xtestApi/obj/
-xtestApi/bin/
+/xtestApi/obj/
+/xtestApi/bin/
 
-apiblog/obj/
-apiblog/bin/
+/apiblog/obj/
+/apiblog/bin/
 
-Authen/obj/
-Authen/bin/
+/Authen/obj/
+/Authen/bin/
 
-BlogModels/obj/
-BlogModels/bin/
+/BlogModels/obj/
+/BlogModels/bin/
 
-CorePlugs20/obj/
-CorePlugs20/bin/
+/CorePlugs20/obj/
+/CorePlugs20/bin/
 
-uiblog/obj/
-uiblog/bin/
+/uiblog/obj/
+/uiblog/bin/
