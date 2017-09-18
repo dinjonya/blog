@@ -1,0 +1,9 @@
+{
+    "ApiInvokeRecord":{
+        "Used":true,
+        "InvokeMethod":{
+            "Uri":"http://127.0.0.1:16060/",
+            "MethodName":"api1.0/InvokeRecord/dbsave"
+        }
+    }
+}

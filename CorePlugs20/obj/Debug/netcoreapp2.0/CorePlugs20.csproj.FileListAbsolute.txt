@@ -1,0 +1,9 @@
+/me/myblog/dinblog/CorePlugs20/bin/Debug/netcoreapp2.0/CorePlugs20.deps.json
+/me/myblog/dinblog/CorePlugs20/bin/Debug/netcoreapp2.0/CorePlugs20.dll
+/me/myblog/dinblog/CorePlugs20/bin/Debug/netcoreapp2.0/CorePlugs20.pdb
+/me/myblog/dinblog/CorePlugs20/obj/Debug/netcoreapp2.0/CorePlugs20.csproj.CoreCompileInputs.cache
+/me/myblog/dinblog/CorePlugs20/obj/Debug/netcoreapp2.0/CorePlugs20.AssemblyInfoInputs.cache
+/me/myblog/dinblog/CorePlugs20/obj/Debug/netcoreapp2.0/CorePlugs20.AssemblyInfo.cs
+/me/myblog/dinblog/CorePlugs20/obj/Debug/netcoreapp2.0/CorePlugs20.dll
+/me/myblog/dinblog/CorePlugs20/obj/Debug/netcoreapp2.0/CorePlugs20.pdb
+/me/myblog/dinblog/CorePlugs20/obj/Debug/netcoreapp2.0/CorePlugs20.csprojResolveAssemblyReference.cache

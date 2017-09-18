@@ -1,0 +1,37 @@
+﻿{
+    "EnvironmentName":"online",
+    "AuthenServer":{
+        "AuthenEnable":true,
+        "AuthenServerUrls": [ "http://*:16060","http://127.0.0.1:16060/" ],
+        "NoAuthenIp":{
+            "Enable":true,
+            "Ips":["0.0.0.0","127.0.0.1"]
+        },
+        "ConnectionString":"Server=101.201.232.99;database=db_configBlog_online;uid=sa;pwd=181OdinSam;charset=utf8"
+    },
+    "BlogUi":{
+        "BlogUiUrls": [ "http://*:15050","http://127.0.0.1:15050/" ],
+        "Authen":true
+    },
+    "ApiBlog":{
+        "ApiBlogUrls": [ "http://*:18080","http://127.0.0.1:18080/" ],
+        "Debug": true,
+        "AutoCreateDb": true,
+        "ConnectionString":"Server=101.201.232.99;database=db_apiBlog_online;uid=sa;pwd=181OdinSam;charset=utf8",
+        "Authen":true
+    },
+    "MongoConfig":{
+        "DataBase":"blog",
+        "ConnectionString": "mongodb://odinSam:147djjDJJ@101.201.232.99:27017/blog?slaveOk=true",
+        "Collections": [
+            {
+                "CollectionName": "BlogConfig",
+                "CollectionNameValue": "BlogConfig_Collection"
+            },
+            {
+                "CollectionName": "Authen",
+                "CollectionNameValue": "Authen_Collection"
+            }
+        ]
+    }
+}

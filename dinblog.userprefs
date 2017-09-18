@@ -1,0 +1,15 @@
+﻿<Properties StartupConfiguration="{2C3599AC-E41A-4A94-BCFD-6B014AE7C9C5}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="CorePlugs20/ApiFilter/ApiFilterAttribute.cs">
+    <Files>
+      <File FileName="CorePlugs20/ApiFilter/ApiFilterAttribute.cs" Line="82" Column="108" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.02.uiApi.apiblog PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.06.authen.Authen PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>

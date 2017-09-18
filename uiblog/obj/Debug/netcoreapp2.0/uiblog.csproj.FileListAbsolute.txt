@@ -1,0 +1,14 @@
+/me/myblog/dinblog/uiblog/bin/Debug/netcoreapp2.0/uiblog.deps.json
+/me/myblog/dinblog/uiblog/bin/Debug/netcoreapp2.0/uiblog.runtimeconfig.json
+/me/myblog/dinblog/uiblog/bin/Debug/netcoreapp2.0/uiblog.runtimeconfig.dev.json
+/me/myblog/dinblog/uiblog/bin/Debug/netcoreapp2.0/uiblog.dll
+/me/myblog/dinblog/uiblog/bin/Debug/netcoreapp2.0/uiblog.pdb
+/me/myblog/dinblog/uiblog/obj/Debug/netcoreapp2.0/uiblog.csproj.CoreCompileInputs.cache
+/me/myblog/dinblog/uiblog/obj/Debug/netcoreapp2.0/uiblog.AssemblyInfoInputs.cache
+/me/myblog/dinblog/uiblog/obj/Debug/netcoreapp2.0/uiblog.AssemblyInfo.cs
+/me/myblog/dinblog/uiblog/obj/Debug/netcoreapp2.0/uiblog.dll
+/me/myblog/dinblog/uiblog/obj/Debug/netcoreapp2.0/uiblog.pdb
+/me/myblog/dinblog/uiblog/bin/Debug/netcoreapp2.0/BlogModels.dll
+/me/myblog/dinblog/uiblog/bin/Debug/netcoreapp2.0/CorePlugs20.dll
+/me/myblog/dinblog/uiblog/bin/Debug/netcoreapp2.0/BlogModels.pdb
+/me/myblog/dinblog/uiblog/bin/Debug/netcoreapp2.0/CorePlugs20.pdb

@@ -1,0 +1,62 @@
+/*  iphone4 iphone5 iphone5s */
+@media only screen and (min-width: 320px) {
+    body{ padding:5px; }
+    .nav{ overflow: auto; }
+    .nav .container{height: 100%;text-align: center;}
+    .nav .container>a{display: inline-block;}
+    .nav .container ul{margin-top:0px;display: none;}
+    .nav .container .menu-icon{display:block; height: 18px;width:18px;position: absolute;top:10px;right:10px; }
+    .post { padding: 15px 10px; line-height: 2; }
+    .post .post-header { text-align: center; }
+    .post .post-header .post-title a { font-size: 20px;}
+    .post .post-body{ display:none;}
+    .post-button { text-align: center;padding:20px 0px; } 
+    .footer {margin:20px auto 0px auto;height: 40px;line-height: 20px;font-size: 12px;}
+    .footer .uvpv{ display: block;}
+}
+/*  iphone6 */
+@media only screen and (min-width: 375px) {
+    /* .nav{ height:50px; }*/
+    .nav .container{height: 100%;text-align: center;}
+    .nav .container>a{display: inline-block;}
+    .nav .container ul{margin-top:0px;}
+    .post .post-body{ display:block; padding-top:10px;font-size: 14px; }
+    .post .post-body h2{ font-size: 20px;padding:5px 0px; }
+    .footer {font-size: 14px;}
+    .footer .uvpv{ display: inline-block;}
+}
+/*  iphone6p */
+@media screen and (min-width: 414px){
+    .nav{ height:90px; }
+    .nav .container{height: 100%;text-align: center;}
+    .nav .container>a{display: inline-block;}
+    .nav .container ul{margin-top:0px;display: block;height: 40px;}
+    .nav .container ul li:first-child{ margin-right:5px; }
+    .nav .container ul li:last-child{margin-left:5px;}
+    .nav .container ul li{display: inline-block;margin-right:5px;margin-left:5px;}
+    .nav .container .menu-icon{display: none;}
+    .footer{line-height: 60px;height: 60px;font-size: 14px;}
+}
+/*  ipad */
+@media screen and (min-width: 768px){
+    .nav{ height:60px;}
+    .nav .container{height: 100%;margin:0px auto;text-align: left;}
+    .nav .container>a{margin-top: 8px;}
+    .nav .container ul{float: right;margin-top:10px;}
+    .nav .container ul li { margin-left:10px; }
+    .nav .container ul li a{ font-size: 16px; }
+    .nav .container .menu-icon{display: none;}
+    .post{padding:20px 0px 0px 25px;}
+    .post .post-header { text-align: left; }
+    .post .post-body{padding:5px 0px 5px 25px;}
+    .post-button { text-align: left;padding:30px 0px; } 
+}
+/*  pc */
+@media screen and (min-width:1200px){
+    .nav .container{ width:980px;margin:0px auto; }
+    .nav .container>a{display: inline-block;margin-top: 8px;}
+    .nav .container>a:hover{text-decoration: none;}
+    .main {width:980px;margin:0px auto;}
+    .post .post-header .post-title a { font-size: 24px;}
+    .footer {width:980px;}
+}
