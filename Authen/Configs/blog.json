@@ -18,7 +18,10 @@
         "Debug": true,
         "AutoCreateDb": true,
         "ConnectionString":"Server=101.201.232.99;database=db_apiBlog_online;uid=sa;pwd=181OdinSam;charset=utf8",
-        "Authen":true
+        "Authen":true,
+        "AllowCorsUris":[
+            "http://0.0.0.0:15050/","http://127.0.0.1:15050/"
+        ]
     },
     "MongoConfig":{
         "DataBase":"blog",

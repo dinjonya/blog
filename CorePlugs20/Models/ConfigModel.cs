@@ -38,6 +38,9 @@ namespace CorePlugs20.Models
         public bool AutoCreateDb { get; set; }
         public string ConnectionString { get; set; }
         public bool Authen { get; set; }
+
+        public List<string> AllowCorsUris { get; set; }
+        
     }
 
     public class MongoConfigModel

@@ -31,7 +31,7 @@ namespace apiblog.Models
         /// blog归属人密码
         /// </summary>
         /// <returns></returns>
-        [StringLength(16)]
+        [StringLength(256)]
         public string OwnerPwd { get; set; }
         
         /// <summary>

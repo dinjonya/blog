@@ -1,4 +1,11 @@
 var App=function(){
+    var AjaxUri = null;
+    if(window.location.hostname=="127.0.0.1") {
+        AjaxUri = ajaxUrl.local;
+    }
+    else {
+        AjaxUri = ajaxUrl.online;
+    }
     /* 计算footer的位置 */
     var handleFooterPosition=function(){
         var windowHeight = $(window).height();
@@ -16,10 +23,23 @@ var App=function(){
         });
     }
 
+    var handleSetWebPUV = function(pagePath){
+        jqAjax.ajax({
+            url:AjaxUri.Statistics.PUV.Uri+pagePath+"/"+Math.random(),
+            method:AjaxUri.Statistics.PUV.Method,
+            success:function(data){
+            }
+        });
+    }
+
     return{
+        ajaxUri:AjaxUri,
         init:function(){
             handleFooterPosition();
             handleNavMenuToggle();
+        },
+        setWebPUV:function(pagePath){
+            handleSetWebPUV(pagePath);
         }
     }
 }();

@@ -31,6 +31,18 @@ namespace apiblog
             
             services.AddDbContext<BlogEntities>(options=>options.UseMySql(Program.Config.ApiBlog.ConnectionString));
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin", builder =>
+                {
+                    builder.WithOrigins(Program.Config.ApiBlog.AllowCorsUris.ToArray())
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials();
+                });
+            });
+
             services.AddMvc(options => options.Filters.Add(new ApiFilterAttribute(Program.AuthenInfo)));
             
         }
