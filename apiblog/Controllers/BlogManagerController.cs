@@ -20,8 +20,9 @@ namespace apiblog.Controllers
         {
             db = _db;
         }
-
+        
         /*
+        接口简介: 后台管理员登录接口
         接口路径: apiblog/api1.0/BlogManager/Login
         请求方式: Post
         输入参数: Json格式
@@ -34,7 +35,6 @@ namespace apiblog.Controllers
             statue = true,   //业务逻辑是否成功 失败返回false
             Data = "new { cookie=cookieInfo,otherObject }"     // 失败返回错误信息
         }
-        接口简介: 后台管理员登录接口
         */
         
         [EnableCors("AllowSpecificOrigin")]
@@ -60,6 +60,7 @@ namespace apiblog.Controllers
 
 
         /*
+        接口简介: 后台验证当前用户权限接口
         接口路径: apiblog/api1.0/BlogManager/Authen
         请求方式: Post
         输入参数: 无
@@ -73,7 +74,6 @@ namespace apiblog.Controllers
             Status = true,  //判断失败返回false
             Data = "ok"     //失败返回错误信息
         }
-        接口简介: 后台验证当前用户权限接口
         */
         
         [EnableCors("AllowSpecificOrigin")]
@@ -86,6 +86,7 @@ namespace apiblog.Controllers
 
         
         /*
+        接口简介: 修改blog标题接口
         接口路径: apiblog/api1.0/BlogManager/ChangeTitle
         请求方式: Post
         输入参数: Json格式
@@ -97,7 +98,6 @@ namespace apiblog.Controllers
             Status = true,  //判断失败返回false
             Data = "ok"     //失败返回错误信息
         }
-        接口简介: 
         */
         
         [EnableCors("AllowSpecificOrigin")]
@@ -119,6 +119,78 @@ namespace apiblog.Controllers
                 db.Entry<BlogConfig_DbModel>(model).State = EntityState.Modified;
                 db.SaveChanges();
                 return new ResultData { Status = true, Data = new { Message = "ok" } };
+            }
+        }
+
+        /*
+        接口简介: 查询获取所有类别接口
+        接口路径: apiblog/api1.0/BlogManager/GetAllCategory
+        请求方式: Get
+        输入参数: 无
+        接口返回: Json格式
+        {
+            Status = true,  //业务是否成功， 失败返回false
+            Data = List<PostCategoriey_DbModel>对象集合     //失败返回错误信息
+        }
+        */
+        [EnableCors("AllowSpecificOrigin")]
+        [Route("GetAllCategory/{rnd}")]
+        [HttpGet]
+        public ResultData GetAllCategories(string rnd)
+        {
+            //验证身份
+            var result = Authen();
+            if(!result.Status)
+                return result;
+            else
+            {   
+                var model = db.PostCategories.OrderBy(c=>c.Id).ThenBy(c=>c.Pid).ToList();
+                return new ResultData { Status = true, Data = new { Categories = model } };
+            }
+        }
+
+        
+        /*
+        接口路径: apiblog/api1.0/BlogManager/AddCategory
+        请求方式: Post
+        输入参数: Json格式
+        {
+            "category":"类别名称",
+            "value": 类别Pid
+        }
+        接口返回: Json格式
+        {
+            Status = true,  //业务成功还是 失败
+            Data = new { Categories = List<PostCategory_DbModel> }  //成功返回所有类别信息   失败返回错误信息   
+        }
+        接口简介: 添加新类别接口
+        */
+        
+        [EnableCors("AllowSpecificOrigin")]
+        [Route("AddCategory")]
+        [HttpPost]
+        public ResultData AddCategory()
+        {
+            //验证身份
+            var result = Authen();
+            if(!result.Status)
+                return result;
+            else
+            {   
+                string strParam = this.RouteData.Values["paramStr"].ToString();
+                var category = JObject.Parse(strParam).GetValue("category").ToString();
+                var val = Convert.ToInt32(JObject.Parse(strParam).GetValue("value").ToString());
+                var dbModel = db.PostCategories.Where(pc=>pc.CategoryName==category && pc.Pid==val).ToList();
+                if(dbModel.Count>0)
+                    return new ResultData { Status = true, Data = "类别重复，无法添加  -- 0xAddCategory02" };
+                var model = new PostCategory_DbModel { CategoryName = category, Pid = val };
+                db.PostCategories.Add(model);
+                db.Entry<PostCategory_DbModel>(model).State = EntityState.Added;
+                int i = db.SaveChanges();
+                if(i>0)
+                    return new ResultData { Status = true, Data = new { Categories = db.PostCategories.ToList() } };
+                else
+                    return new ResultData { Status = true, Data = "添加失败，请联系管理员  -- 0xAddCategory01" };
             }
         }
 

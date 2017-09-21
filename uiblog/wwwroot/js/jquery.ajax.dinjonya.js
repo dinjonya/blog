@@ -15,6 +15,7 @@ var jqAjax=function(){
             }
             var async = ajaxArgs.async==undefined?true:ajaxArgs.async;
             var method = ajaxArgs.method==undefined?"post":ajaxArgs.method;
+
             $.ajax({
                 headers:headers,
                 type:method,
@@ -38,6 +39,11 @@ var jqAjax=function(){
                         if(ajaxArgs.buserror!=undefined)
                             ajaxArgs.buserror(result);
                     }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
                 },
                 beforeSend: function(xhr) {
                     xhr.withCredentials = true;

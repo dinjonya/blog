@@ -4,7 +4,7 @@ var ManageIndex=function(){
             window.location.href = "/index.html";
         jqAjax.ajax({
             url:App.ajaxUri.Manager.Authen.Uri,
-            Method:App.ajaxUri.Manager.Authen.Method,
+            method:App.ajaxUri.Manager.Authen.Method,
             success:function(data){
                 console.log("ManageIndex handleAuthen");
             },

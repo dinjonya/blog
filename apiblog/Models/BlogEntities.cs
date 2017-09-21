@@ -10,6 +10,8 @@ namespace apiblog.Models
         }
         public DbSet<Post_DbModel> Posts { get; set; }
 
+        public DbSet<PostCategory_DbModel> PostCategories { get; set; }
+
         public DbSet<PostReply_DbModel> PostReplys { get; set; }
 
         public DbSet<Tag_DbModel> Tags { get; set; }

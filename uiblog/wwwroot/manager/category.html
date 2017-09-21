@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>OdinSam后台管理</title>
+    <title>分类管理</title>
     <link rel="stylesheet" href="/css/index.all.css" />
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 </head>
@@ -14,8 +14,8 @@
         <!--    page header nav container start   -->
         <div class="container">
             <!--    header logo start   -->
-            <a href="/index.html">
-                <h2 class="nav-title">OdinSam后台管理</h2>
+            <a href="/manager/index.html">
+                <h2 class="nav-title">分类管理</h2>
             </a>
             <!--    header logo end   -->
         </div>
@@ -26,11 +26,17 @@
 
     <!--    page main start -->
     <div class="main">
-        <div><a href="/manager/title.html">标题修改</a></div>
-        <div><a href="/manager/category.html">分类管理</a></div>
-        <div><a href="/manager/article.html">文章管理</a></div>
-        <div><a href="/manager/tag.html">标签管理</a></div>
-        <div><a href="/manager/about.html">about修改</a></div>
+        <div>分类名称</div>
+        <div><input type="text" id="txtCategory" /></div>
+        <br />
+        <div>分类级别</div>
+        <div>
+            <select id="selCategory">
+                <option selected="selected" value="0">顶级分类</option>
+            </select>
+        </div>
+        <br />
+       <div><input type="button" id="btnSubmit" value="修改" /></div>
     </div>
     <!--    page main end -->
 
@@ -48,10 +54,12 @@
     <script src="/js/ajax.url.js"></script>
     <script src="/js/app.js"></script>
     <script src="/js/manage.index.js"></script>
+    <script src="/js/manage.category.js"></script>
     <script>
         $(function(){
             App.init();
             ManageIndex.init();
+            ManageCategory.init();
         })
     </script>
 </body>

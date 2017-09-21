@@ -3,7 +3,7 @@ var ManageTitle=function(){
         $("#btnSubmit").click(function(){
             jqAjax.ajax({
                 url:App.ajaxUri.Manager.ChangeTitle.Uri,
-                Method:App.ajaxUri.Manager.ChangeTitle.Method,
+                method:App.ajaxUri.Manager.ChangeTitle.Method,
                 data:JSON.stringify({
                     "title":$("#txtTitle").val()
                 }),

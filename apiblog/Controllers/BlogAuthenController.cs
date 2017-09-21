@@ -18,7 +18,9 @@ namespace apiblog.Controllers
         {
             db = _db;
         }
+        
         /*
+        接口简介: 更新网站PV UV 数据接口
         接口路径: apiblog/api1.0/blogauthen/puv/{pagePath}/{rnd}
         请求方式: get
         输入参数: 
@@ -29,7 +31,6 @@ namespace apiblog.Controllers
             Status = true,  // true 业务逻辑成功 false失败
             Data = CookieInfo对象   
         }
-        接口简介: 
         */
         [EnableCors("AllowSpecificOrigin")]
         [Route("puv/{pagePath}/{rnd}")]
