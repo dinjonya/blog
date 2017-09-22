@@ -11,7 +11,8 @@
     },
     "BlogUi":{
         "BlogUiUrls": [ "http://*:15050","http://127.0.0.1:15050/" ],
-        "Authen":true
+        "Authen":true,
+        "UploadPath":"uiblog/wwwroot/images/upload/"
     },
     "ApiBlog":{
         "ApiBlogUrls": [ "http://*:18080","http://127.0.0.1:18080/" ],

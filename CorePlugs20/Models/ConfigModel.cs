@@ -28,6 +28,7 @@ namespace CorePlugs20.Models
     {
         public List<string> BlogUiUrls { get; set; }
         public bool Authen { get; set; }
+        public string UploadPath { get; set; }
     }
     
     public class ApiBlogModel 

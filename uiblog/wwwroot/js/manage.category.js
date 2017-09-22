@@ -2,7 +2,7 @@ var ManageCategory=function(){
     var handleGetAllCategory=function(){
         if(Cookies.get("cv")==undefined || Cookies.get("ct")==undefined)
             window.location.href = "/index.html";
-        
+            
         jqAjax.ajax({
             url:App.ajaxUri.Manager.GetAllCategory.Uri+Math.random(),
             method:App.ajaxUri.Manager.GetAllCategory.Method,

@@ -101,7 +101,8 @@ namespace CorePlugs20.ApiFilter
 
         public override void OnActionExecuted(ActionExecutedContext context)
         {
-            ResultEncapsulates(context);
+            if(!NoFilterHelper.IssureFilter<NoEncapsulatesAttribute>(context))
+                ResultEncapsulates(context);
             if(NoFilterHelper.IssureFilter<NoFilterAttribute>(context))
             {
                 base.OnActionExecuted(context);

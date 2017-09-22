@@ -1,13 +1,20 @@
 using System;
+using System.IO;
 using System.Linq;
 using apiblog.Models;
+using CorePlugs20.ApiFilter;
+using CorePlugs20.Files;
 using CorePlugs20.Models;
 using CorePlugs20.OdinSecurity;
 using CorePlugs20.TimeHelper;
 using CorePlugs20.WebApi;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Primitives;
+using Microsoft.Net.Http.Headers;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace apiblog.Controllers
@@ -15,10 +22,12 @@ namespace apiblog.Controllers
     [Route("apiblog/api1.0/[controller]")]
     public class BlogManagerController : Controller
     {
+        private IHostingEnvironment hostingEnv;
         BlogEntities db;
-        public BlogManagerController(BlogEntities _db)
+        public BlogManagerController(BlogEntities _db,IHostingEnvironment env)
         {
             db = _db;
+            hostingEnv = env;
         }
         
         /*
@@ -151,6 +160,7 @@ namespace apiblog.Controllers
 
         
         /*
+        接口简介: 添加新类别接口
         接口路径: apiblog/api1.0/BlogManager/AddCategory
         请求方式: Post
         输入参数: Json格式
@@ -163,7 +173,6 @@ namespace apiblog.Controllers
             Status = true,  //业务成功还是 失败
             Data = new { Categories = List<PostCategory_DbModel> }  //成功返回所有类别信息   失败返回错误信息   
         }
-        接口简介: 添加新类别接口
         */
         
         [EnableCors("AllowSpecificOrigin")]
@@ -192,6 +201,54 @@ namespace apiblog.Controllers
                 else
                     return new ResultData { Status = true, Data = "添加失败，请联系管理员  -- 0xAddCategory01" };
             }
+        }
+
+        /*
+        接口简介: 在线文本编辑器上传图片
+        接口路径: apiblog/api1.0/BlogManager/UploadImage
+        请求方式: Post
+        输入参数: HttpContext.Request.Form.Files;
+        接口返回: IActionResult  上传图片的前台访问路径
+            return Json(new { location = returnPath });
+        */
+        
+        [EnableCors("AllowSpecificOrigin")]
+        [Route("UploadImage")]
+        [NoEncapsulates]
+        [NoFilter]
+        [HttpPost]
+        public IActionResult UploadImage()
+        {
+            var files = HttpContext.Request.Form.Files;
+            string fileName = null;
+            string fileFormat = null;
+            string fileFullPath = null;
+            string returnPath = null;
+            DateTime dt = DateTime.Now;
+            foreach (var file in files)
+            {
+                //获取上传文件的扩展名
+                fileFormat = FileHelper.FileFormatByContent[file.ContentType];
+                //修改上传文件名称为  日期格式文件(含扩展名)
+                fileName = dt.ToString("yyyyMMddHHmmms")+fileFormat;
+                //拼接需要上传的文件路径
+                fileFullPath = hostingEnv.ContentRootPath.Replace("apiblog",Program.Config.BlogUi.UploadPath);
+                fileFullPath = fileFullPath + dt.ToString("yyyyMMdd")+FileHelper.DirectorySeparatorChar;
+                //判断日期文件夹是否存在
+                if(!Directory.Exists(fileFullPath))
+                    Directory.CreateDirectory(fileFullPath);
+                //完成上传路径+上传文件的 全路径 拼接
+                fileFullPath = fileFullPath+fileName;
+                using (FileStream fs = System.IO.File.Create(fileFullPath.ToString()))
+                {
+                    file.CopyTo(fs);
+                    fs.Flush();
+                }
+                returnPath = FileHelper.DirectorySeparatorChar+"images"+FileHelper.DirectorySeparatorChar+"upload"
+                                +FileHelper.DirectorySeparatorChar+dt.ToString("yyyyMMdd")
+                                +FileHelper.DirectorySeparatorChar+fileName;
+            }
+            return Json(new { location = returnPath });
         }
 
         private ResultData Authen()
