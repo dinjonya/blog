@@ -3,6 +3,8 @@
  * by Liuyuchao
  * Copyright 2015.3
  * Date: Wed Mar 25 2015
+ * 
+ * example http://www.jq22.com/yanshi4822
  */
 
 ;(function($,window,document){

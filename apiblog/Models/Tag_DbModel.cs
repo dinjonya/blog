@@ -15,5 +15,7 @@ namespace apiblog.Models
 
         [StringLength(32)]
         public string TagName { get; set; }
+        
+        public int PostNum { get; set; }
     }
 }

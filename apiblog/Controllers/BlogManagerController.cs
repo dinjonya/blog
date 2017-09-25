@@ -199,7 +199,7 @@ namespace apiblog.Controllers
                 if(i>0)
                     return new ResultData { Status = true, Data = new { Categories = db.PostCategories.ToList() } };
                 else
-                    return new ResultData { Status = true, Data = "添加失败，请联系管理员  -- 0xAddCategory01" };
+                    return new ResultData { Status = false, Data = "添加失败，请联系管理员  -- 0xAddCategory01" };
             }
         }
 
@@ -251,6 +251,146 @@ namespace apiblog.Controllers
             return Json(new { location = returnPath });
         }
 
+
+        /*
+        接口简介: 获取Blog about me 的内容
+        接口路径: apiblog/api1.0/BlogManager/SelectAbout/{rnd}
+        请求方式: Get
+        输入参数: rnd 防缓存随机参数
+        接口返回: Json格式
+        {
+            Status = true,  //业务成功还是 失败
+            Data = new { Data = new { Message = dbModel.AboutMe } }  //成功about me的内容，失败返回信息  
+        }
+        */
+        
+        [EnableCors("AllowSpecificOrigin")]
+        [Route("SelectAbout/{rnd}")]
+        [HttpGet]
+        public ResultData SelectAboutMe(string rnd)
+        {
+            //验证身份
+            var result = Authen();
+            if(!result.Status)
+                return result;
+            else
+            {
+                var dbModel = db.BlogConfigs.FirstOrDefault();
+                if(dbModel==null)
+                    return new ResultData { Status = false, Data = "没有Blog配置文件，请联系管理员  -- 0xSelectAboutMe01" };
+                return new ResultData { Status = true, Data = new { Message = dbModel.AboutMe } };
+            }
+        }
+
+
+        /*
+        接口简介: 更新about me的信息
+        接口路径: apiblog/api1.0/BlogManager/UpdataAbout
+        请求方式: Post
+        输入参数: Json格式
+        {
+            "content":"about me 的内容"
+        }
+        接口返回: Json格式
+        {
+            Status = true,  //业务成功还是 失败
+            Data = new { Data = new { Message = "ok" } }  //成功返回ok，失败 Data 返回信息  
+        }
+        */
+        
+        [EnableCors("AllowSpecificOrigin")]
+        [Route("UpdataAbout")]
+        [HttpPost]
+        public ResultData UpdateAboutMe()
+        {
+            var result = Authen();
+            if(!result.Status)
+                return result;
+            else
+            {
+                var dbModel = db.BlogConfigs.FirstOrDefault();
+                if(dbModel==null)
+                    return new ResultData { Status = false, Data = "没有Blog配置文件，请联系管理员  -- 0xUpdateAboutMe01" };
+                string strParam = this.RouteData.Values["paramStr"].ToString();
+                var aboutContent = JObject.Parse(strParam).GetValue("content").ToString();
+                dbModel.AboutMe = aboutContent;
+                db.Entry<BlogConfig_DbModel>(dbModel).State = EntityState.Modified;
+                int i = db.SaveChanges();
+                if(i>0)
+                    return new ResultData { Status = true, Data = new { Message = "ok" } };
+                else
+                    return new ResultData { Status = false, Data = "更新About me 失败，请联系管理员  -- 0xUpdateAboutMe02" };
+                    
+            }
+        }
+
+
+        /*
+        接口简介: 获取Tag的所有信息
+        接口路径: apiblog/api1.0/BlogManager/GetAllTags
+        请求方式: Get
+        输入参数: 无
+        接口返回: Json格式
+        {
+            Status = true,  //业务成功还是 失败
+            Data = new { Data = List<Tag_DbModel> }  //成功返回ok，失败 Data 返回信息  
+        }
+        */
+        
+        [EnableCors("AllowSpecificOrigin")]
+        [Route("GetAllTags/{rnd}")]
+        [HttpGet]
+        public ResultData GetAllTags(string rnd)
+        {
+            var result = Authen();
+            if(!result.Status)
+                return result;
+            else
+            {
+                var dbModels = db.Tags.ToList();
+                return new ResultData { Status = true, Data = dbModels };
+            }
+        }
+  
+
+
+        /*
+        接口简介: 添加标签
+        接口路径: apiblog/api1.0/BlogManager/AddTag
+        请求方式: Post
+        输入参数: Json格式
+        {
+            "tag":"tag名称"
+        }
+        接口返回: Json格式
+        {
+            Status = true,  //业务成功还是 失败
+            Data = new { Data = new { Message = "ok" } }  //成功返回ok，失败 Data 返回信息  
+        }
+        */
+        
+        [EnableCors("AllowSpecificOrigin")]
+        [Route("AddTag")]
+        [HttpPost]
+        public ResultData AddTag()
+        {
+            var result = Authen();
+            if(!result.Status)
+                return result;
+            else
+            {
+                string strParam = this.RouteData.Values["paramStr"].ToString();
+                var tag = JObject.Parse(strParam).GetValue("tag").ToString();
+                Tag_DbModel dbTag = new Tag_DbModel { TagName = tag,PostNum = 0 };
+                db.Entry<Tag_DbModel>(dbTag).State = EntityState.Added;
+                int i = db.SaveChanges();
+                if(i>0)
+                    return new ResultData { Status = true, Data = new { Message = "ok" } };
+                else
+                    return new ResultData { Status = false, Data = "添加tag信息失败，请联系管理员  -- 0xAddTag02" };
+                    
+            }
+        }
         private ResultData Authen()
         {
             string cv = HttpContext.Request.Headers["cv"];

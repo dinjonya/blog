@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>标题修改</title>
+    <title>添加文章</title>
     <link rel="stylesheet" href="/css/index.all.css" />
     <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    
+    <script>
+        
+    </script>
 </head>
 <body>
     <!--    page header nav start   -->
@@ -15,7 +19,7 @@
         <div class="container">
             <!--    header logo start   -->
             <a href="/manager/index.html">
-                <h2 class="nav-title">标题修改</h2>
+                <h2 class="nav-title">添加文章</h2>
             </a>
             <!--    header logo end   -->
         </div>
@@ -26,9 +30,34 @@
 
     <!--    page main start -->
     <div class="main">
-       <div>标题</div>
-       <div><input type="text" id="txtTitle" /></div>
-       <div><input type="button" id="btnSubmit" value="修改" /></div>
+            <div>
+                文章标题: <input id="txtPostTitle" />
+            </div>
+            <div>
+                文章类别: 
+                <select id="selCategory">
+                    <option selected="selected" value="0">顶级分类</option>
+                </select>
+            </div>
+            <div>
+                文章标签: <select id="selTag"></select>
+            </div>
+            <div>
+                文章简介: 
+            </div>
+            <div>
+                <textarea id="textAreaPostdesc" name="editor" style="min-height:200px;" placeholder="Enter your Information here...">
+                </textarea>
+            </div>
+            <div>
+                文章内容: 
+            </div>
+            <div>
+                <textarea id="textAreaPostContent" name="editor" style="min-height:500px;" placeholder="Enter your Information here...">
+                </textarea>
+            </div>
+        
+        <div><input type="button" id="btnSubmit" value="提交保存" /></div>
     </div>
     <!--    page main end -->
 
@@ -41,17 +70,18 @@
     <!--    page footer end -->
 
     <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/js/tinymce/tinymce.min.js"></script>
     <script src="/js/js.cookie.js"></script>
     <script src="/js/jquery.ajax.dinjonya.js"></script>
     <script src="/js/ajax.url.js"></script>
     <script src="/js/app.js"></script>
     <script src="/js/manage.index.js"></script>
-    <script src="/js/manage.title.js"></script>
+    <script src="/js/manage.addpost.js"></script>
     <script>
         $(function(){
             App.init();
             ManageIndex.init();
-            ManageTitle.init();
+            ManageAddPost.init();
         })
     </script>
 </body>
