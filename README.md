@@ -2,6 +2,12 @@
 
 ## 更新日志
 
+### v0.12(2017-09-27)
+
++ app.js 完成首页title读取，使用mongo缓存
++ 修改后台 修改about me 修改blogtitle 接口为 mongo缓存数据
++ app.js 完成Index页面 pv 和 uv的读取
+
 ### v0.12(2017-09-26)
 
 + 修改Post表PostDescription长度

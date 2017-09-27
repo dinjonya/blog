@@ -32,11 +32,36 @@ var App=function(){
         });
     }
 
+    /* 读取blog title */
+    var getBlogTitle = function(){
+        jqAjax.ajax({
+            url:App.ajaxUri.Index.GetBlogTitle.Uri,
+            method:App.ajaxUri.Index.GetBlogTitle.Method,
+            success:function(data){
+                $(".blogtitle").html(data);
+            }
+        });
+    }
+    /* 获取网站的Pv Uv */
+    var getPvUv = function(){
+        jqAjax.ajax({
+            url:App.ajaxUri.Index.GetPvUv.Uri+"Index/",
+            method:App.ajaxUri.Index.GetPvUv.Method,
+            success:function(data){
+                $("#busuanzi_value_site_uv").html(data.uv);
+                //console.log()
+                $("#busuanzi_value_site_pv").html(data.pv);
+            }
+        });
+    }
+
     return{
         ajaxUri:AjaxUri,
         init:function(){
             handleFooterPosition();
             handleNavMenuToggle();
+            getBlogTitle();
+            getPvUv();
         },
         setWebPUV:function(pagePath){
             handleSetWebPUV(pagePath);

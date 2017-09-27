@@ -123,10 +123,14 @@ namespace CorePlugs20.OdinMongo
         /*
         删除对象
         */
-		public DeleteResult RemoveModel(string collectionName, FilterDefinition<BsonDocument> filter)
+		public void RemoveModel(string collectionName, FilterDefinition<BsonDocument> filter)
 		{
 			var collection = db.GetCollection<BsonDocument>(collectionName);
-			return collection.DeleteOne(filter);
+            do
+            {
+                collection.DeleteOne(filter);
+            }
+            while(collection.Find(filter).Count()>0);
 		}
 
 		public DeleteResult RemoveModel(string collectionName, string mongoId)

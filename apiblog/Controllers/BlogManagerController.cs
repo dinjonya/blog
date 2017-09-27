@@ -2,9 +2,12 @@ using System;
 using System.IO;
 using System.Linq;
 using apiblog.Models;
+using BlogModels.MongoKv;
+using BlogModels.UiModel;
 using CorePlugs20.ApiFilter;
 using CorePlugs20.Files;
 using CorePlugs20.Models;
+using CorePlugs20.OdinMongo;
 using CorePlugs20.OdinSecurity;
 using CorePlugs20.TimeHelper;
 using CorePlugs20.WebApi;
@@ -14,6 +17,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Primitives;
 using Microsoft.Net.Http.Headers;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -22,6 +27,8 @@ namespace apiblog.Controllers
     [Route("apiblog/api1.0/[controller]")]
     public class BlogManagerController : Controller
     {
+        private static MongoHelper mongo = new MongoHelper(Program.Config.MongoConfig.ConnectionString,Program.Config.MongoConfig.DataBase);
+        private string blogDatavalue = Program.Config.MongoConfig[MongoCollectionEnum.BLOGDATACOLLECTION].CollectionNameValue;
         private IHostingEnvironment hostingEnv;
         BlogEntities db;
         public BlogManagerController(BlogEntities _db,IHostingEnvironment env)
@@ -33,7 +40,7 @@ namespace apiblog.Controllers
         /*
         接口简介: 后台管理员登录接口
         接口路径: apiblog/api1.0/BlogManager/Login
-        请求方式: Post
+        请求方式: Put
         输入参数: Json格式
         {
             "un":"loingName",
@@ -48,7 +55,7 @@ namespace apiblog.Controllers
         
         [EnableCors("AllowSpecificOrigin")]
         [Route("Login")]
-        [HttpPost]
+        [HttpPut]
         public ResultData Login()
         {
             string strParam = this.RouteData.Values["paramStr"].ToString();
@@ -71,7 +78,7 @@ namespace apiblog.Controllers
         /*
         接口简介: 后台验证当前用户权限接口
         接口路径: apiblog/api1.0/BlogManager/Authen
-        请求方式: Post
+        请求方式: Put
         输入参数: 无
         Headers中包含 cookie信息
         {
@@ -87,7 +94,7 @@ namespace apiblog.Controllers
         
         [EnableCors("AllowSpecificOrigin")]
         [Route("Authen")]
-        [HttpPost]
+        [HttpPut]
         public ResultData AuthenCurrentUser()
         {
             return Authen();
@@ -97,7 +104,7 @@ namespace apiblog.Controllers
         /*
         接口简介: 修改blog标题接口
         接口路径: apiblog/api1.0/BlogManager/ChangeTitle
-        请求方式: Post
+        请求方式: Put
         输入参数: Json格式
         {
             title:"change title"
@@ -111,7 +118,7 @@ namespace apiblog.Controllers
         
         [EnableCors("AllowSpecificOrigin")]
         [Route("ChangeTitle")]
-        [HttpPost]
+        [HttpPut]
         public ResultData BlogChangeTitle()
         {
             //验证身份
@@ -121,12 +128,19 @@ namespace apiblog.Controllers
             else
             {   
                 string strParam = this.RouteData.Values["paramStr"].ToString();
-                System.Console.WriteLine(strParam);
                 var title = JObject.Parse(strParam).GetValue("title").ToString();
                 var model = db.BlogConfigs.SingleOrDefault();
                 model.BlogTitle = title;
                 db.Entry<BlogConfig_DbModel>(model).State = EntityState.Modified;
                 db.SaveChanges();
+                BlogConfig_Model mongoModel = new BlogConfig_Model
+                {
+                    BlogTitle = model.BlogTitle,
+                    BlogAboutMe = model.AboutMe
+                };
+                var filter = Builders<BsonDocument>.Filter.Eq("Key", "Blog");
+                mongo.RemoveModel(blogDatavalue,filter);
+                mongo.AddModel(blogDatavalue,mongoModel);
                 return new ResultData { Status = true, Data = new { Message = "ok" } };
             }
         }
@@ -206,7 +220,7 @@ namespace apiblog.Controllers
         /*
         接口简介: 在线文本编辑器上传图片
         接口路径: apiblog/api1.0/BlogManager/UploadImage
-        请求方式: Post
+        请求方式: Put
         输入参数: HttpContext.Request.Form.Files;
         接口返回: IActionResult  上传图片的前台访问路径
             return Json(new { location = returnPath });
@@ -216,7 +230,7 @@ namespace apiblog.Controllers
         [Route("UploadImage")]
         [NoEncapsulates]
         [NoFilter]
-        [HttpPost]
+        [HttpPut]
         public IActionResult UploadImage()
         {
             var files = HttpContext.Request.Form.Files;

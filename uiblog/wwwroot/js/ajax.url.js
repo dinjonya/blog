@@ -5,15 +5,16 @@ var ajaxUrl = {
             "PUV":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/blogauthen/puv/","Method":"Get"}
         },
         "Index":{
-            "GetBlogTitle":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/Blog/GetBlogTitle/","Method":"Get"}
+            "GetBlogTitle":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/Blog/GetBlogTitle/","Method":"Get"},
+            "GetPvUv":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/Blog/GetPvUv/","Method":"Get"}
         },
         "Manager": {
-            "Login":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/Login/","Method":"Post"},
-            "Authen":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/Authen/","Method":"Post"},
-            "ChangeTitle":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/ChangeTitle/","Method":"Post"},
+            "Login":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/Login/","Method":"Put"},
+            "Authen":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/Authen/","Method":"Put"},
+            "ChangeTitle":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/ChangeTitle/","Method":"Put"},
             "GetAllCategory":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/GetAllCategory/","Method":"Get"},
             "AddCategory":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/AddCategory/","Method":"Post"},
-            "UploadImg":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/UploadImage/","Method":"Post"},
+            "UploadImg":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/UploadImage/","Method":"Put"},
             "SelectAbout":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/SelectAbout/","Method":"Get"},
             "UpdateAbout":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/UpdataAbout/","Method":"Put"},
             "GetAllTags":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/GetAllTags/","Method":"Get"},
@@ -28,15 +29,16 @@ var ajaxUrl = {
             "PUV":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/blogauthen/puv/","Method":"Get"}
         },
         "Index":{
-            "GetBlogTitle":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/Blog/GetBlogTitle/","Method":"Get"}
+            "GetBlogTitle":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/Blog/GetBlogTitle/","Method":"Get"},
+            "GetPvUv":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/Blog/GetPvUv/","Method":"Get"}
         },
         "Manager": {
-            "Login":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/Login/","Method":"Post"},
-            "Authen":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/Authen/","Method":"Post"},
-            "ChangeTitle":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/ChangeTitle/","Method":"Post"},
+            "Login":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/Login/","Method":"Put"},
+            "Authen":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/Authen/","Method":"Put"},
+            "ChangeTitle":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/ChangeTitle/","Method":"Put"},
             "GetAllCategory":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/GetAllCategory/","Method":"Get"},
             "AddCategory":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/AddCategory/","Method":"Post"},
-            "UploadImg":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/UploadImage/","Method":"Post"},
+            "UploadImg":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/UploadImage/","Method":"Put"},
             "SelectAbout":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/SelectAbout/","Method":"Get"},
             "UpdateAbout":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/UpdataAbout/","Method":"Post"},
             "GetAllTags":{"Uri":"http://127.0.0.1:18080/apiblog/api1.0/BlogManager/GetAllTags/","Method":"Get"},

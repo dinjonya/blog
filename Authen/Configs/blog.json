@@ -36,6 +36,10 @@
             {
                 "CollectionName": "Authen",
                 "CollectionNameValue": "Authen_Collection"
+            },
+            {
+                "CollectionName":"BlogData",
+                "CollectionNameValue":"BlogData_Collection"
             }
         ]
     }
