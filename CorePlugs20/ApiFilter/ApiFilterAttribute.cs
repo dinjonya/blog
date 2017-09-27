@@ -58,15 +58,15 @@ namespace CorePlugs20.ApiFilter
                 invokeRecordModel.InvokeTime = UnixTimeHelper.FromDateTime(DateTime.Now).ToString();
                 invokeRecordModel.UserSource = context.HttpContext.Request.Headers["PrjName"];
                 invokeRecordModel.Headers = JsonConvert.SerializeObject(context.HttpContext.Request.Headers);
-                if(context.HttpContext.Request.Method=="POST")
+                if(context.HttpContext.Request.Method=="GET")
+                {
+                    invokeRecordModel.SetValue(controllerName, actionName, invokeRecordModel.UserSource, context.HttpContext.Request.QueryString.ToString());
+                }
+                else //if(context.HttpContext.Request.Method=="POST")
                 {
                     string strParams = ApiHelper.GetStringFromRequestBody(context.HttpContext.Request.Body);
                     invokeRecordModel.SetValue(controllerName, actionName, invokeRecordModel.UserSource, strParams);         
                     context.RouteData.Values.Add("paramStr",strParams);
-                }
-                if(context.HttpContext.Request.Method=="GET")
-                {
-                    invokeRecordModel.SetValue(controllerName, actionName, invokeRecordModel.UserSource, context.HttpContext.Request.QueryString.ToString());
                 }
                 context.RouteData.Values.Add("invokeRecordModel",invokeRecordModel);
             }

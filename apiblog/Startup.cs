@@ -36,9 +36,10 @@ namespace apiblog
                 options.AddPolicy("AllowSpecificOrigin", builder =>
                 {
                     builder.WithOrigins(Program.Config.ApiBlog.AllowCorsUris.ToArray())
+                    .SetPreflightMaxAge(new TimeSpan(60*60*24*100))
                     .AllowAnyOrigin()
                     .AllowAnyMethod()
-                    .AllowAnyHeader()
+                    .AllowAnyHeader()                    
                     .AllowCredentials();
                 });
             });

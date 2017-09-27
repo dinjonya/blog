@@ -18,12 +18,13 @@ namespace Authen.Controllers
             db = _db;
         }
         /*
+        接口简介: 记录所有项目api被调用的情况 无需过滤器拦截
         接口路径: Authen/api1.0/InvokeRecord/dbsave
         请求方式: Post
         输入参数: Json格式
         InvokeRecordModel对象
         接口返回: void
-        接口简介: 记录所有项目api被调用的情况 无需过滤器拦截
+        
         */
         [Route("dbsave")]
         [NoFilter]

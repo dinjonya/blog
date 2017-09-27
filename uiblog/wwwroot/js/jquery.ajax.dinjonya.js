@@ -22,6 +22,8 @@ var jqAjax=function(){
                 url:ajaxArgs.url,
                 data:data,
                 async:async,
+                cache: false,
+                crossDomain:true,
                 success:function(data){
                     var status = data.Value.Status;
                     var result = data.Value.Data;

@@ -24,7 +24,6 @@ namespace apiblog.Models
         /// 简介
         /// </summary>
         /// <returns></returns>
-        [StringLength(64)]
         public string PostDescription { get; set; }
 
         /// <summary>

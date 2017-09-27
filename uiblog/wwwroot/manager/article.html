@@ -28,7 +28,21 @@
 
     <!--    page main start -->
     <div class="main">
-        <input type="button" value="test" id="btn" />
+        <table style="width:100%;text-align:center;">
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>标题</th>
+                    <th>类别</th>
+                    <th>创建日期</th>
+                    <th>编辑</th>
+                    <th>删除</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                
+            </tbody>
+        </table>
         <!--    post pagination start -->
         <nav class="pagination">
                 <a href="#" class="pnleft">←</a>
@@ -72,14 +86,14 @@
             App.init();
             ManageIndex.init();
             ManageArticle.init();
-            $("#btn").click(function(){
-                $('#mask-dialogBox').dialogBox({
-                    hasClose: true,
-                    hasMask: true,
-                    title: 'title text',
-                    content: 'dialog content text,image,html file'
-                });
-            });
+            // $("#btn").click(function(){
+            //     $('#mask-dialogBox').dialogBox({
+            //         hasClose: true,
+            //         hasMask: true,
+            //         title: 'title text',
+            //         content: 'dialog content text,image,html file'
+            //     });
+            // });
         })
     </script>
 </body>

@@ -57,9 +57,9 @@ namespace apiblog.Controllers
             string up = js["up"].ToString();
             var blogOwner = db.BlogConfigs.Where(cfg=>cfg.BlogOwner == un).SingleOrDefault();
             if(blogOwner == null)
-                return new ResultData { Status = false, Data = "用户名或密码有误 - 0x000001" };
+                return new ResultData { Status = false, Data = "用户名或密码有误 - 0xLogin1" };
             if(blogOwner.OwnerPwd != (up+blogOwner.Salt).StringToMd5ToLower())
-                return new ResultData { Status = false, Data = "用户名或密码有误 - 0x000002" };
+                return new ResultData { Status = false, Data = "用户名或密码有误 - 0xLogin2" };
             //生成cookie
             string dt = UnixTimeHelper.FromDateTime(DateTime.Now).ToString();
             string cv = ("OdinSam"+dt).StringToMd5ToLower();
@@ -115,7 +115,7 @@ namespace apiblog.Controllers
         public ResultData BlogChangeTitle()
         {
             //验证身份
-            var result = Authen();
+            var result = Authen("ChangeTitle");
             if(!result.Status)
                 return result;
             else
@@ -148,7 +148,7 @@ namespace apiblog.Controllers
         public ResultData GetAllCategories(string rnd)
         {
             //验证身份
-            var result = Authen();
+            var result = Authen("GetAllCategory");
             if(!result.Status)
                 return result;
             else
@@ -181,7 +181,7 @@ namespace apiblog.Controllers
         public ResultData AddCategory()
         {
             //验证身份
-            var result = Authen();
+            var result = Authen("AddCategory");
             if(!result.Status)
                 return result;
             else
@@ -270,7 +270,7 @@ namespace apiblog.Controllers
         public ResultData SelectAboutMe(string rnd)
         {
             //验证身份
-            var result = Authen();
+            var result = Authen("SelectAbout");
             if(!result.Status)
                 return result;
             else
@@ -286,7 +286,7 @@ namespace apiblog.Controllers
         /*
         接口简介: 更新about me的信息
         接口路径: apiblog/api1.0/BlogManager/UpdataAbout
-        请求方式: Post
+        请求方式: Put
         输入参数: Json格式
         {
             "content":"about me 的内容"
@@ -300,22 +300,26 @@ namespace apiblog.Controllers
         
         [EnableCors("AllowSpecificOrigin")]
         [Route("UpdataAbout")]
-        [HttpPost]
+        [HttpPut]
         public ResultData UpdateAboutMe()
         {
-            var result = Authen();
+            var result = Authen("UpdataAbout");
+            
             if(!result.Status)
                 return result;
             else
             {
-                var dbModel = db.BlogConfigs.FirstOrDefault();
+                var dbModel = db.BlogConfigs.SingleOrDefault();
                 if(dbModel==null)
                     return new ResultData { Status = false, Data = "没有Blog配置文件，请联系管理员  -- 0xUpdateAboutMe01" };
                 string strParam = this.RouteData.Values["paramStr"].ToString();
+                System.Console.WriteLine($"result UpdateAboutMe:{strParam}");
+                System.Console.WriteLine($"strParam:{strParam}");
                 var aboutContent = JObject.Parse(strParam).GetValue("content").ToString();
                 dbModel.AboutMe = aboutContent;
                 db.Entry<BlogConfig_DbModel>(dbModel).State = EntityState.Modified;
                 int i = db.SaveChanges();
+                
                 if(i>0)
                     return new ResultData { Status = true, Data = new { Message = "ok" } };
                 else
@@ -342,7 +346,7 @@ namespace apiblog.Controllers
         [HttpGet]
         public ResultData GetAllTags(string rnd)
         {
-            var result = Authen();
+            var result = Authen("GetAllTags");
             if(!result.Status)
                 return result;
             else
@@ -374,7 +378,7 @@ namespace apiblog.Controllers
         [HttpPost]
         public ResultData AddTag()
         {
-            var result = Authen();
+            var result = Authen("AddTag");
             if(!result.Status)
                 return result;
             else
@@ -387,18 +391,162 @@ namespace apiblog.Controllers
                 if(i>0)
                     return new ResultData { Status = true, Data = new { Message = "ok" } };
                 else
-                    return new ResultData { Status = false, Data = "添加tag信息失败，请联系管理员  -- 0xAddTag02" };
+                    return new ResultData { Status = false, Data = "添加tag信息失败，请联系管理员  -- 0xAddTag01" };
                     
             }
         }
-        private ResultData Authen()
+
+        /*
+        接口简介: 添加文章
+        接口路径: apiblog/api1.0/BlogManager/AddPost
+        请求方式: Post
+        输入参数: Json格式
+        {
+            "title":"文章标题",
+            "postDesc":"文章简介",
+            "postContent":"文章内容",
+            "categoryId":文章类别编号,    //int
+            "tags":"文章标签集合"
+        }
+        接口返回: Json格式
+        {
+            Status = true,  //业务成功还是 失败
+            Data = new { Data = new { Message = "ok" } }  //成功返回ok，失败 Data 返回信息  
+        }
+        */
+        
+        [EnableCors("AllowSpecificOrigin")]
+        [Route("AddPost")]
+        [HttpPost]
+        public ResultData AddPost()
+        {
+            var result = Authen("AddPost");
+            if(!result.Status)
+                return result;
+            else
+            {
+                string strParam = this.RouteData.Values["paramStr"].ToString();
+                var title = JObject.Parse(strParam).GetValue("title").ToString();
+                var postDesc = JObject.Parse(strParam).GetValue("postDesc").ToString();
+                var postContent = JObject.Parse(strParam).GetValue("postContent").ToString();
+                var categoryId = Convert.ToInt32(JObject.Parse(strParam).GetValue("categoryId").ToString());
+                var tags = JObject.Parse(strParam).GetValue("tags").ToString();
+                System.Console.WriteLine(tags);
+                Post_DbModel postModel = new Post_DbModel
+                {
+                    PostTitle = title,
+                    PostDescription = postDesc,
+                    PostContent = postContent,
+                    PostCategoryId = categoryId,
+                    Tags = tags,
+                    PostTime = UnixTimeHelper.FromDateTime(DateTime.Now).ToString()
+                };
+                db.Entry<Post_DbModel>(postModel).State = EntityState.Added;
+                int i = db.SaveChanges();
+                if(i>0)
+                    return new ResultData { Status = true, Data = new { Message = "ok" } };
+                else
+                    return new ResultData { Status = false, Data = "添加Post信息失败，请联系管理员  -- 0xAddPost01" };
+                    
+            }
+        }
+
+
+        /*
+        接口简介: 查询文章接口
+        接口路径: apiblog/api1.0/BlogManager/SelectPost
+        请求方式: Get
+        输入参数: 
+        接口返回: Json格式
+        {
+            Status = true,  //业务成功还是 失败
+            Data = new { Data = new { Message = "ok" } }  //成功返回ok，失败 Data 返回信息  
+        }
+        */
+        
+        [EnableCors("AllowSpecificOrigin")]
+        [Route("SelectPost/{pageIndex}/{rnd}")]
+        [HttpGet]
+        public ResultData SelectPost(string pageIndex)
+        {
+            var result = Authen("SelectPost");
+            if(!result.Status)
+                return result;
+            else
+            {
+                int pi = string.IsNullOrWhiteSpace(pageIndex)?1:Convert.ToInt32(pageIndex);
+                int ps = Program.Config.PageSize;
+                var selectModels = from p in db.Posts
+                                        join categroy in db.PostCategories
+                                        on p.PostCategoryId equals categroy.Id
+                                        select new {
+                                            Id = p.Id,
+                                            Title = p.PostTitle,
+                                            DateTime = p.PostTime,
+                                            Category = categroy.CategoryName
+                                        };
+                var pageCount = selectModels.Count();
+                if(pageCount==0)
+                    return new ResultData { Status = true, Data = new { Message = "ok", PageCount = 0 } };
+                pageCount = pageCount%ps==0? pageCount/ps : pageCount/ps+1 ;
+                var selectResult = selectModels.OrderByDescending(p=>p.DateTime).Skip((pi-1)*ps).Take(ps).ToList();
+                return new ResultData { Status = true, Data = new { Message = "ok",Result = selectResult, PageCount = pageCount } };
+            }
+        }
+
+
+        /*
+        接口简介: 删除文章接口
+        接口路径: apiblog/api1.0/BlogManager/RemovePost
+        请求方式: Delete
+        输入参数: Json格式
+        {
+            Id:1 //文章编号
+        }
+        接口返回: Json格式
+        {
+            Status = true,  //业务成功还是 失败
+            Data = new { Data = new { Message = "ok" } }  //成功返回ok，失败 Data 返回信息  
+        }
+        */
+        
+        [EnableCors("AllowSpecificOrigin")]
+        [Route("RemovePost")]
+        [HttpDelete]
+        public ResultData RemovePost()
+        {
+            var result = Authen("RemovePost");
+            if(!result.Status)
+                return result;
+            else
+            {
+                string strParam = this.RouteData.Values["paramStr"].ToString();
+                var id = Convert.ToInt32(JObject.Parse(strParam).GetValue("Id").ToString());
+                var postModel = db.Posts.Where(p=>p.Id==id).SingleOrDefault();
+                if(postModel==null)
+                    return new ResultData { Status = false, Data = $"删除的文章[ {id} ]不存在，请联系管理员  -- 0xRemovePost01" };
+                db.Posts.Remove(postModel);
+                db.Entry<Post_DbModel>(postModel).State = EntityState.Deleted;
+                int i = db.SaveChanges();
+                if(i>0)
+                    return new ResultData { Status = true, Data = new { Message = "ok" } };
+                else
+                    return new ResultData { Status = false, Data = "添加Post信息失败，请联系管理员  -- 0xRemovePost02" };
+            }
+        }
+
+        /// <summary>
+        /// 身份认证
+        /// </summary>
+        /// <returns></returns>
+        private ResultData Authen(string authenType="000000")
         {
             string cv = HttpContext.Request.Headers["cv"];
             string ct = HttpContext.Request.Headers["ct"];
             if(string.IsNullOrWhiteSpace(cv) || string.IsNullOrWhiteSpace(ct))
-                return new ResultData { Status = false, Data = "身份认证不正确 - 0x000003" };
+                return new ResultData { Status = false, Data = "身份认证不正确 - 0x"+authenType+"-1" };
             if(("OdinSam"+ct).StringToMd5ToLower() != cv)
-                return new ResultData { Status = false, Data = "身份认证不正确 - 0x000004" };
+                return new ResultData { Status = false, Data = "身份认证不正确 - 0x"+authenType+"-2" };
             else
                 return new ResultData { Status = true, Data = new { Message = "ok" } };
         }

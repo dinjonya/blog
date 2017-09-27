@@ -19,6 +19,7 @@ namespace Authen.Controllers
         
         
         /*
+        接口简介: 获取整体配置信息 无需拦截器过滤拦截 配置信息存储于mongodb缓存中
         接口路径: Authen/api1.0/Config
         请求方式: Get
         输入参数: 无
@@ -29,7 +30,7 @@ namespace Authen.Controllers
             
         }
         
-        接口简介: 获取整体配置信息 无需拦截器过滤拦截 配置信息存储于mongodb缓存中
+        
         */
         [HttpGet]
         public ResultData Get()
@@ -46,12 +47,12 @@ namespace Authen.Controllers
         }
 
         /*
+        接口简介: 删除mongodb的缓存数据 reload 重新加载配置文件并存储
         接口路径: Authen/api1.0/Config/Reload
         请求方式: Get
         输入参数: 无        
         接口返回: Json格式
         ConfigModel对象
-        接口简介: 删除mongodb的缓存数据 reload 重新加载配置文件并存储
         */
         [Route("reload")]
         [HttpGet]

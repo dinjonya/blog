@@ -27,6 +27,7 @@ namespace Authen.Controllers
 
 
         /*
+        接口简介: 请求认证查询接口 传递需要查询的Key 返回查询结果
         接口路径: Authen/api1.0/{AuthenKey}
         请求方式: Get
         输入参数: {AuthenKey}  请求的Key
@@ -36,7 +37,6 @@ namespace Authen.Controllers
             Data = InvokerAuthen_DbModel对象 
             
         }
-        接口简介: 请求认证查询接口 传递需要查询的Key 返回查询结果
         */
         
         [HttpGet("{AuthenKey}")]

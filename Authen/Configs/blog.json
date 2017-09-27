@@ -1,5 +1,6 @@
 ﻿{
     "EnvironmentName":"online",
+    "PageSize":10,
     "AuthenServer":{
         "AuthenEnable":true,
         "AuthenServerUrls": [ "http://*:16060","http://127.0.0.1:16060/" ],

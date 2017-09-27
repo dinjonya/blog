@@ -36,6 +36,57 @@ var ManageAddPost = function(){
             }
         }
     }
+    var handleGetTags = function(){
+        jqAjax.ajax({
+            url:App.ajaxUri.Manager.GetAllTags.Uri+Math.random(),
+            method:App.ajaxUri.Manager.GetAllTags.Method,
+            success:function(data){
+                var selections = [];
+                for (var key in data) {
+                    var text = data[key]["TagName"];
+                    var val = data[key]["Id"];
+                    var obj = { "id":val,"text":text };
+                    selections.push(obj);
+                }
+                // var extract_preselected_ids = function(element){
+                //     console.log(element.val());
+                    
+                //     var preselected_ids = [];
+                //         if(element.val())
+                //         $(element.val().toString().split(",")).each(function () {
+                //             preselected_ids.push({id: this});
+                //         });
+                //     console.log(preselected_ids);
+                //     return preselected_ids;
+                // };
+                
+                // var preselect = function(preselected_ids){
+                //     var pre_selections = [];
+                //     for(index in selections)
+                //         for(id_index in preselected_ids)
+                //             if (selections[index].id == preselected_ids[id_index].id)
+                //                 pre_selections.push(selections[index]);
+                    
+                //     return pre_selections;
+                // };
+                
+                $('#selTag').select2({
+                    minimumInputLength: 0,
+                    width:300,
+                    multiple: true,
+                    allowClear: true,
+                    data: selections,  
+                    // initSelection: function(element, callback){
+                    //     //var preselected_ids = extract_preselected_ids(element);
+                    //     var preselected_ids = [{"id":1},{"id":4}];
+                    //     var preselections = preselect(preselected_ids);
+                    //     console.log(preselections);
+                    //     callback(preselections);
+                    // }
+                }); 
+            }
+        });
+    }
 
     var handleTinymceInit = function() {
         if(Cookies.get("cv")==undefined || Cookies.get("ct")==undefined)
@@ -115,10 +166,37 @@ var ManageAddPost = function(){
             }
         });
     }
+
+    var handleSubmit = function() {
+        $("#btnSubmit").click(function(){
+            var title = $("#txtPostTitle").val();
+            var categoryId = $("#selCategory").val();
+            var postDesc = tinyMCE.editors[0].getContent();
+            var postContent = tinyMCE.editors[1].getContent();
+            var tags = $("#selTag").select2("val").toString();
+            jqAjax.ajax({
+                url:App.ajaxUri.Manager.AddPost.Uri,
+                method:App.ajaxUri.Manager.AddPost.Method,
+                data:JSON.stringify({
+                    "title":title,
+                    "postDesc":postDesc,
+                    "postContent":postContent,
+                    "categoryId":categoryId,    //int
+                    "tags":tags
+                }),
+                success:function(data){
+
+                }
+            });
+        });
+    }
     return {
         init:function(){
             handleTinymceInit();
             handleGetAllCategory();
+            handleGetTags();
+            handleSubmit();
+            
         }
     }
 }();

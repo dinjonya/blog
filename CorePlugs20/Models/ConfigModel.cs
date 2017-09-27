@@ -5,6 +5,7 @@ namespace CorePlugs20.Models
     public class ConfigModel
     {
         public string EnvironmentName { get; set; }
+        public int PageSize { get; set; }
         public AuthenServerModel AuthenServer { get; set; }
         public BlogUiModel BlogUi { get; set; }
         public ApiBlogModel ApiBlog { get; set; }
