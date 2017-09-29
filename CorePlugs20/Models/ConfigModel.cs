@@ -30,6 +30,26 @@ namespace CorePlugs20.Models
         public List<string> BlogUiUrls { get; set; }
         public bool Authen { get; set; }
         public string UploadPath { get; set; }
+        public List<Apis_Config> Apis { get; set; }
+
+        public Apis_Config this[string apiName]
+        {
+            get
+            {
+                foreach (var item in Apis)
+                {
+                    if(item.ApiName == apiName)
+                        return item;
+                }
+                return null;
+            }
+        }
+    }
+    public class Apis_Config
+    {
+        public string ApiName { get; set; }
+        public string Uri { get; set; }
+        public string UriPath { get; set; }
     }
     
     public class ApiBlogModel 

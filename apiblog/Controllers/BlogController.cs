@@ -89,5 +89,43 @@ namespace apiblog.Controllers
             int uv = db.UV.Where(uView=>uView.VisitPath==VisitPage).Count();
             return new ResultData{ Status = true,Data=new { uv = uv,pv = pv } };
         }
+
+
+        /*
+        接口简介: 获取Index页面的Post文章的接口，带分页
+        接口路径: apiblog/api1.0/Blog/GetPosts
+        请求方式: Get
+        输入参数: 无
+        接口返回: Json格式
+        {
+            statue = true,   //业务逻辑是否成功 失败返回false
+            Data=new { PageCount = pageCount,Posts = List<IndexPost_Model> }     // 成功返回Post展示信息 失败返回错误信息
+        }
+        */
+        
+        [EnableCors("AllowSpecificOrigin")]
+        [Route("GetPosts/{PageIndex}")]
+        [HttpGet]
+        public ResultData GetPosts(int PageIndex)
+        {
+            int pageSize = Program.Config.PageSize;
+            var dbResult =  db.Posts;
+            int pageCount = dbResult.Count();
+            pageCount = pageCount%pageSize==0? pageCount/pageSize : pageCount/pageSize+1;
+            var dbModels = (from post in dbResult 
+                            join c in db.PostCategories
+                            on post.PostCategoryId equals c.Id
+                            select new IndexPost_Model
+                            {
+                                Id = post.Id,
+                                PostTitle = post.PostTitle,
+                                PostDesc = post.PostDescription,
+                                PostTime = post.PostTime,
+                                PostCategoryId = c.Id,
+                                PostCategory = c.CategoryName
+                            }).Skip((PageIndex-1)*pageSize).Take(pageSize).ToList();
+            Index_Model model = new Index_Model{ PageCount = pageCount, Posts = dbModels };
+            return new ResultData{ Status = true,Data = model };
+        }
     }
 }

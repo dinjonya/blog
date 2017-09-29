@@ -57,6 +57,7 @@
 .pagination{text-align: center; }
 .pagination .pnnums{display: inline-block;}
 .pagination .pnnums li{display: inline-block;}
+.pagination .pnnums .current{ background-color: rgba(240, 240, 240, 1); }
 .pnleft{float: left;}
 .pnright{float: right;}
 .pagination a{color:#999;}
