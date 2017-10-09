@@ -1,0 +1,81 @@
+@using BlogModels.UiModel
+@using CorePlugs20.TimeHelper
+@model Category_Model
+@{
+    ViewData["Title"] = "类别文章";
+}
+@section Styles{
+    <link rel="stylesheet" href="/css/index.all.css" />
+}
+@section Scripts{
+    <script src="/js/index.js"></script>
+    <script>
+        $(function(){
+            //Index.init();
+        })
+    </script>
+}
+<!--    post section start -->
+<section class="posts section">
+    <!-- page posts -->
+    @{
+        /*Post 显示*/
+        foreach(var category in Model.Categories){
+            <div class="dvcategory">
+                <a href="/blog/category/post/@(category.CategoryId)">@(category.CategoryName)【 @(category.PostNum) 】</a>
+            </div>
+        }
+    }
+</section>
+<!--    post section end -->
+
+<!--    post pagination start -->
+<nav class="pagination">
+    @{
+        var currentPage = ViewContext.RouteData.Values.Keys.Contains("q1")?Convert.ToInt32(ViewContext.RouteData.Values["q1"]):1;
+        var pageCount = Model.PageCount;
+        var cid = ViewContext.RouteData.Values["q1"];
+        if(pageCount>0)
+        {
+            if(currentPage>1)
+            {
+            <a href="/blog/category/post/@(cid)/@(currentPage-1)" data-page="@(currentPage-1)" class="pnleft">←</a>
+            }
+            <ul class="pnnums">
+            @if(currentPage>5)
+            {
+                for(int i =(pageCount-currentPage>=2?(currentPage-2):((currentPage-(4-(pageCount-currentPage)))>0?currentPage-(4-(pageCount-currentPage)):1));i<=(pageCount-currentPage>2?currentPage+2:pageCount);i++)
+                {
+                    <li class="@(i==currentPage?"current":"")"><a data-page=@(i) href="/blog/category/post/@(cid)/@(i)">@(i)</a></li>
+                }
+            }
+            else
+            {
+                for(int i = 1;i<=(pageCount>5?5:pageCount);i++)
+                {
+                    <li class=@(i==currentPage?"current":"")><a data-page=@(i) href="/blog/category/post/@(cid)/@(i)">@(i)</a></li>
+                }
+            }
+            </ul>
+            if(currentPage<pageCount)
+            {
+            <a  data-page="@(currentPage+1)" href="/blog/category/post/@(cid)/@(currentPage+1)" class="pnright">→</a>
+            }            
+        }
+    }
+    <!-- <a href="#" class="pnleft">←</a>
+    <ul class="pnnums">
+        <li><a href="#">1</a></li>
+        <li class="current"><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">6</a></li>
+        <li><a href="#">7</a></li>
+        <li><a href="#">8</a></li>
+        <li><a href="#">9</a></li>
+        <li><a href="#">10</a></li>
+    </ul>
+    <a href="#" class="pnright">→</a> -->
+</nav>
+<!--    post pagination end -->

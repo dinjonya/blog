@@ -49,8 +49,13 @@ namespace uiblog
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "category",
+                    template: "blog/{controller}/{action=Post}/{q1}/{q2?}/{q3?}");
+                routes.MapRoute(
                     name: "default",
-                    template: "{controller=Blog}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
+
+                
             });
         }
     }

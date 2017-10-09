@@ -1,0 +1,41 @@
+@using BlogModels.UiModel
+@using CorePlugs20.TimeHelper
+@model Index_Model
+@{
+    ViewData["Title"] = "文章归档";
+}
+@section Styles{
+    <link rel="stylesheet" href="/css/index.all.css" />
+    <link rel="stylesheet" href="/css/version.line.css" />
+}
+@section Scripts{
+    <script>
+        $(function() {
+            var liNodes = $('ul.timeline li'), count = liNodes.length, i, liNode;
+            for(i=0; i<count; i++) {
+                liNode = $(liNodes.get(i));
+                if(i % 2 !== 0) {
+                    liNode.addClass('alt');
+                }
+                liNode.find('.number').text(count - i);
+            }
+        });
+    </script>
+}
+<ul class="timeline">
+    @{
+        foreach(var post in Model.Posts){
+var dt = UnixTimeHelper.FromUnixTime(Convert.ToInt64(post.PostTime));
+    <li>
+        <div class="time">@(dt.ToString("yyyy-MM-dd"))</div>
+        <!-- <div class="version">@(dt.ToString("yyyy-MM-dd"))</div> -->
+        <div class="number"></div>
+        <div class="content">
+            <a href="/blog/post/@(post.Id)"><pre>
+@Html.Raw(post.PostDesc)
+            </pre></a>
+        </div>
+    </li>
+        }
+    }    
+<ul>

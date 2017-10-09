@@ -19,6 +19,31 @@
                 "ApiName":"GetPosts",
                 "Uri":"http://127.0.0.1:18080/",
                 "UriPath":"apiblog/api1.0/Blog/GetPosts/"
+            },
+            {
+                "ApiName":"GetPostsByCategory",
+                "Uri":"http://127.0.0.1:18080/",
+                "UriPath":"apiblog/api1.0/Blog/GetPostsByCategory/"
+            },
+            {
+                "ApiName":"GetCategories",
+                "Uri":"http://127.0.0.1:18080/",
+                "UriPath":"apiblog/api1.0/Blog/GetCategories/"
+            },
+            {
+                "ApiName":"GetAllPosts",
+                "Uri":"http://127.0.0.1:18080/",
+                "UriPath":"apiblog/api1.0/Blog/GetAllPosts/"
+            },
+            {
+                "ApiName":"GetTags",
+                "Uri":"http://127.0.0.1:18080/",
+                "UriPath":"apiblog/api1.0/Blog/GetTags/"
+            },
+            {
+                "ApiName":"GetPostByTag",
+                "Uri":"http://127.0.0.1:18080/",
+                "UriPath":"apiblog/api1.0/Blog/GetPostByTag/"
             }
         ]
     },
@@ -34,7 +59,7 @@
     },
     "MongoConfig":{
         "DataBase":"blog",
-        "ConnectionString": "mongodb://odinSam:147djjDJJ@101.201.232.99:27017/blog?slaveOk=true",
+        "ConnectionString": "mongodb://blogMongo:147blog!$&@101.201.232.99:27017/blog?slaveOk=true",
         "Collections": [
             {
                 "CollectionName": "BlogConfig",

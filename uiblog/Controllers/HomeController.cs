@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace uiblog.Controllers
 {
-    public class BlogController : Controller
+    public class HomeController : Controller
     {
         public IActionResult Index(int? id)
         {
