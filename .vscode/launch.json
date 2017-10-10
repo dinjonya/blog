@@ -4,75 +4,107 @@
     // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
     "version": "0.2.0",
     "configurations": [
-         {
-             "name": "【 Authen 】 Launch",
-             "type": "coreclr",
-             "request": "launch",
-             "preLaunchTask": "build",
-             // If you have changed target frameworks, make sure to update the program path.
-             "program": "${workspaceRoot}/Authen/bin/Debug/netcoreapp2.0/Authen.dll",
-             "args": [],
-             "cwd": "${workspaceRoot}/Authen",
-             "stopAtEntry": false,
-             "internalConsoleOptions": "openOnSessionStart",
-             "launchBrowser": {
-                 "enabled": true,
-                 "args": "${auto-detect-url}",
-                 "windows": {
-                     "command": "cmd.exe",
-                     "args": "/C start ${auto-detect-url}"
-                 },
-                 "osx": {
-                     "command": "open"
-                 },
-                 "linux": {
-                     "command": "xdg-open"
-                 }
-             },
-             "env": {
-                 "ASPNETCORE_ENVIRONMENT": "Development"
-             },
-             "sourceFileMap": {
-                 "/Views": "${workspaceRoot}/Views"
-             }
-         },
-         {
-             "name": "【 ApiBlog 】 Launch",
-             "type": "coreclr",
-             "request": "launch",
-             "preLaunchTask": "build",
-             // If you have changed target frameworks, make sure to update the program path.
-             "program": "${workspaceRoot}/apiblog/bin/Debug/netcoreapp2.0/apiblog.dll",
-             "args": [],
-             "cwd": "${workspaceRoot}/apiblog",
-             "stopAtEntry": false,
-             "internalConsoleOptions": "openOnSessionStart",
-             "launchBrowser": {
-                 "enabled": true,
-                 "args": "${auto-detect-url}",
-                 "windows": {
-                     "command": "cmd.exe",
-                     "args": "/C start ${auto-detect-url}"
-                 },
-                 "osx": {
-                     "command": "open"
-                 },
-                 "linux": {
-                     "command": "xdg-open"
-                 }
-             },
-             "env": {
-                 "ASPNETCORE_ENVIRONMENT": "Development"
-             },
-             "sourceFileMap": {
-                 "/Views": "${workspaceRoot}/Views"
-             }
-         },
-         {
-             "name": ".NET Core Attach",
-             "type": "coreclr",
-             "request": "attach",
-             "processId": "${command:pickProcess}"
-         }
+        {
+            "name": "【 UI 】 Launch",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceRoot}/uiblog/bin/Debug/netcoreapp2.0/uiblog.dll",
+            "args": [],
+            "cwd": "${workspaceRoot}/uiblog",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "launchBrowser": {
+                "enabled": true,
+                "args": "${auto-detect-url}",
+                "windows": {
+                    "command": "cmd.exe",
+                    "args": "/C start ${auto-detect-url}"
+                },
+                "osx": {
+                    "command": "open"
+                },
+                "linux": {
+                    "command": "xdg-open"
+                }
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceRoot}/Views"
+            }
+        },
+        {
+            "name": "【 Authen 】 Launch",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceRoot}/Authen/bin/Debug/netcoreapp2.0/Authen.dll",
+            "args": [],
+            "cwd": "${workspaceRoot}/Authen",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "launchBrowser": {
+                "enabled": true,
+                "args": "${auto-detect-url}",
+                "windows": {
+                    "command": "cmd.exe",
+                    "args": "/C start ${auto-detect-url}"
+                },
+                "osx": {
+                    "command": "open"
+                },
+                "linux": {
+                    "command": "xdg-open"
+                }
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceRoot}/Views"
+            }
+        },
+        {
+            "name": "【 ApiBlog 】 Launch",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceRoot}/apiblog/bin/Debug/netcoreapp2.0/apiblog.dll",
+            "args": [],
+            "cwd": "${workspaceRoot}/apiblog",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "launchBrowser": {
+                "enabled": true,
+                "args": "${auto-detect-url}",
+                "windows": {
+                    "command": "cmd.exe",
+                    "args": "/C start ${auto-detect-url}"
+                },
+                "osx": {
+                    "command": "open"
+                },
+                "linux": {
+                    "command": "xdg-open"
+                }
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceRoot}/Views"
+            }
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
+        }
      ]
  }
