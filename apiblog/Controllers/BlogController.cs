@@ -117,6 +117,7 @@ namespace apiblog.Controllers
                                 PostTime = post.PostTime,
                             }).ToList();
             Index_Model model = new Index_Model{ PageCount = -1, Posts = dbModels };
+            
             return new ResultData{ Status = true,Data = model };
         }
 
@@ -285,7 +286,6 @@ namespace apiblog.Controllers
         {
             int pageIndex = PageIndex==null?1:Convert.ToInt32(PageIndex);
             string tagId = TagId.ToString();
-            System.Console.WriteLine(tagId);
             int pageSize = Program.Config.PageSize;
             var dbResult =  db.Posts.Where(p=>p.Tags.Contains(tagId));
             int pageCount = dbResult.Count();
@@ -304,8 +304,71 @@ namespace apiblog.Controllers
                                 PostCategory = c.CategoryName
                             }).Skip((pageIndex-1)*pageSize).Take(pageSize).ToList();
             Index_Model model = new Index_Model{ PageCount = pageCount, Posts = dbModels };
-            System.Console.WriteLine(model.Posts==null);
             return new ResultData{ Status = true,Data = model };
+        }
+
+        /*
+        接口简介: 获取Rss所需要的文章信息 top20
+        接口路径: apiblog/api1.0/Blog/GetPostByRss
+        请求方式: Get
+        输入参数: Json格式
+            无
+        接口返回: Json格式
+        {
+            statue = true,   //业务逻辑是否成功 失败返回false
+            Data=new { PageCount = 1,Posts = List<CategoryModel> }     // 成功返回Post展示信息 失败返回错误信息
+        }
+        */
+        
+        [EnableCors("AllowSpecificOrigin")]
+        [Route("GetPostByRss")]
+        [HttpGet]
+        public ResultData GetPostByRss()
+        {
+            int pageSize = Program.Config.PageSize;
+            var dbModels = (from post in db.Posts 
+                            join c in db.PostCategories
+                            on post.PostCategoryId equals c.Id
+                            orderby post.PostTime descending
+                            select new IndexPost_Model
+                            {
+                                Id = post.Id,
+                                PostTitle = post.PostTitle,
+                                PostDesc = post.PostDescription,
+                                PostContent = post.PostContent,
+                                PostTime = post.PostTime,
+                                PostCategoryId = c.Id,
+                                PostCategory = c.CategoryName
+                            }).Take(pageSize).ToList();
+            Index_Model model = new Index_Model{ PageCount = 1, Posts = dbModels };
+            return new ResultData{ Status = true,Data = model };
+        }
+
+
+        /*
+        接口简介: 获取About me 数据
+        接口路径: apiblog/api1.0/Blog/GetAboutMe
+        请求方式: Get
+        输入参数: Json格式
+            无
+        接口返回: Json格式
+        {
+            statue = true,   //业务逻辑是否成功 失败返回false
+            Data=new { About = AboutMe_Model }     // 成功返回AboutMe_Model展示信息 失败返回错误信息
+        }
+        */
+        
+        [EnableCors("AllowSpecificOrigin")]
+        [Route("GetAboutMe")]
+        [HttpGet]
+        public ResultData GetAboutMe()
+        {
+            var result = db.BlogConfigs.SingleOrDefault();
+            if(result == null)
+                return new ResultData{ Status = false,Data="BlogConfig查询不存在，找不到About Me信息,0xGetAboutMe01" };
+            string aboutme = result.AboutMe;
+            return new ResultData{ Status = true,Data = new AboutMe_Model{ Me = aboutme } };
+
         }
     }
 }

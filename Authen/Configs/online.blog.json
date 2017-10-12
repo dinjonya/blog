@@ -17,7 +17,7 @@
         "Apis":[
             {
                 "ApiName":"GetPosts",
-                "Uri":"http://127.0.0.1:18080/",
+                "Uri":"http://http://101.201.232.99/:18080/",
                 "UriPath":"apiblog/api1.0/Blog/GetPosts/"
             },
             {
@@ -64,7 +64,7 @@
         "ConnectionString":"Server=101.201.232.99;database=db_apiBlog_online;uid=sa;pwd=181OdinSam;charset=utf8",
         "Authen":true,
         "AllowCorsUris":[
-            "http://0.0.0.0:15050/","http://127.0.0.1:15050/"
+            "http://0.0.0.0:15050/","http://127.0.0.1:15050/","http://www.f2e8.com"
         ]
     },
     "MongoConfig":{

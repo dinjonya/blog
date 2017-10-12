@@ -1,0 +1,17 @@
+@using BlogModels.UiModel
+@model AboutMe_Model
+@{
+    ViewData["Title"] = "关于";
+}
+@section Styles{
+    <link rel="stylesheet" href="/css/index.all.css" />
+}
+@section Scripts{
+    <script src="/js/index.js"></script>
+    <script>
+        $(function(){
+            //Index.init();
+        })
+    </script>
+}
+@Html.Raw(Model.Me)

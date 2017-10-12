@@ -48,41 +48,12 @@ var ManageAddPost = function(){
                     var obj = { "id":val,"text":text };
                     selections.push(obj);
                 }
-                // var extract_preselected_ids = function(element){
-                //     console.log(element.val());
-                    
-                //     var preselected_ids = [];
-                //         if(element.val())
-                //         $(element.val().toString().split(",")).each(function () {
-                //             preselected_ids.push({id: this});
-                //         });
-                //     console.log(preselected_ids);
-                //     return preselected_ids;
-                // };
-                
-                // var preselect = function(preselected_ids){
-                //     var pre_selections = [];
-                //     for(index in selections)
-                //         for(id_index in preselected_ids)
-                //             if (selections[index].id == preselected_ids[id_index].id)
-                //                 pre_selections.push(selections[index]);
-                    
-                //     return pre_selections;
-                // };
-                
                 $('#selTag').select2({
                     minimumInputLength: 0,
                     width:300,
                     multiple: true,
                     allowClear: true,
                     data: selections,  
-                    // initSelection: function(element, callback){
-                    //     //var preselected_ids = extract_preselected_ids(element);
-                    //     var preselected_ids = [{"id":1},{"id":4}];
-                    //     var preselections = preselect(preselected_ids);
-                    //     console.log(preselections);
-                    //     callback(preselections);
-                    // }
                 }); 
             }
         });
@@ -95,7 +66,7 @@ var ManageAddPost = function(){
             selector: '#textAreaPostdesc',
             theme: 'modern',
             plugins: 'image,textcolor,codesample,colorpicker,fullscreen,link',
-            toolbar: 'undo redo | forecolor backcolor | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image imagetools | codesample | fullscreen',
+            toolbar: 'undo redo | forecolor backcolor fontsizeselect | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image imagetools | codesample | fullscreen',
             menubar: false,
             Height: 400,
             file_browser_callback_types: 'file image',
@@ -132,7 +103,7 @@ var ManageAddPost = function(){
             selector: '#textAreaPostContent',
             theme: 'modern',
             plugins: 'image,textcolor,codesample,colorpicker,fullscreen,link',
-            toolbar: 'undo redo | forecolor backcolor | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image imagetools | codesample | fullscreen',
+            toolbar: 'undo redo | forecolor backcolor fontsizeselect | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image imagetools | codesample | fullscreen',
             menubar: false,
             Height: 400,
             file_browser_callback_types: 'file image',
@@ -185,7 +156,7 @@ var ManageAddPost = function(){
                     "tags":tags
                 }),
                 success:function(data){
-
+                    alert("添加成功");
                 }
             });
         });

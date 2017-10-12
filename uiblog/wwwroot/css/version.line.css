@@ -1,61 +1,62 @@
 ul.timeline {
     list-style-type: none;
-              background: url("/images/version_line.png") repeat-y scroll 120px 0 transparent;
-              margin: 50px 0;
-              padding: 0;
-          }
-       
-          ul.timeline li {
-              position: relative;
-              margin-bottom: 20px;
-          }
-          ul.timeline li .time {
-              position: absolute;
-             width: 90px;
-              text-align: right;
-              left: 0;
-              top: 10px;
-              color: #999;
-          }
-         ul.timeline li .version {
-             position: absolute;
-              width: 290px;
-             text-align: right;
-              left: -200px;
-              top: 30px;
-              font-size: 40px;
-              line-height: 50px;
-               color: #3594cb;
-              overflow: hidden;
-          }
-          ul.timeline li .number {
-              position: absolute;
-             background: url("/images/version_dot.png") no-repeat scroll 0 0 transparent;
-              width: 56px;
-              height: 56px;
-              left: 97px;
-              line-height: 56px;
-              text-align: center;
-              color: #fff;
-              font-size: 18px;
-         }
-          ul.timeline li.alt .number {
-              background-image: url("/images/version_dot_alt.png");
-          }
-          ul.timeline li .content {
-              margin-left: 180px;
-              
-         }
-          ul.timeline li .content pre {
-              background-color: #3594cb;
-              padding: 20px;
-             color: #fff;
-              font-size: 13px;  
-              line-height: 20px;
-          }
-          ul.timeline li.alt .content pre {
-             background-color: #43B1F1;
-         }
-         ul.timeline a:link,ul.timeline a:hover,ul.timeline a:visited{
-             text-decoration: none;
-         }
+    background: url("/images/version_line.png") repeat-y scroll 120px 0 transparent;
+    margin: 50px 0;
+    padding: 0;
+}
+ul.timeline li {
+    position: relative;
+    margin-bottom: 20px;
+}
+ul.timeline li .time {
+    position: absolute;
+    width: 90px;
+    text-align: right;
+    left: 0;
+    top: 10px;
+    color: #999;
+}
+ul.timeline li .version {
+    position: absolute;
+    width: 290px;
+    text-align: right;
+    left: -200px;
+    top: 30px;
+    font-size: 40px;
+    line-height: 50px;
+    color: #e8f0f5;
+    overflow: hidden;
+}
+ul.timeline li .number {
+    position: absolute;
+    background: url("/images/version_dot.png") no-repeat scroll 0 0 transparent;
+    width: 56px;
+    height: 56px;
+    left: 97px;
+    line-height: 56px;
+    text-align: center;
+    color: #fff;
+    font-size: 18px;
+}
+ul.timeline li.alt .number {
+    background-image: url("/images/version_dot_alt.png");
+}
+ul.timeline li .content {
+    margin-left: 180px;
+    
+}
+ul.timeline li .content pre {
+    background-color: #e8f0f5;
+    padding: 20px;
+    color: #fff;
+    font-size: 13px;  
+    line-height: 50px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+ul.timeline li.alt .content pre {
+    background-color: #43B1F1;
+}
+ul.timeline a:link,ul.timeline a:hover,ul.timeline a:visited{
+    text-decoration: none;
+}

@@ -11,6 +11,7 @@ namespace CorePlugs20.Models
         public ApiBlogModel ApiBlog { get; set; }
 
         public MongoConfigModel MongoConfig { get; set; }
+        public RssConfig Rss { get; set; }
     }
 
     public class AuthenServerModel
@@ -95,4 +96,19 @@ namespace CorePlugs20.Models
         public string CollectionNameValue { get; set; }
     }
     
+    public partial class RssConfig
+    {
+        public string RssTitle { get; set; }
+        public string AlternateLink { get; set; }
+        public string SelfLink { get; set; }
+        public AtomTagConfig AtomTag { get; set; }
+        public string SubTitle  { get; set; }
+        public string AuthorName { get; set; }
+        public string AuthorEmail { get; set; }
+    }
+    public partial class AtomTagConfig
+    {
+        public string Id { get; set; }
+        public string Domain { get; set; }
+    }
 }

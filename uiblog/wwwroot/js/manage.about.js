@@ -47,7 +47,7 @@ var ManageAbout = function(){
             selector: '#editor1',
             theme: 'modern',
             plugins: 'image,textcolor,codesample,colorpicker,fullscreen,link',
-            toolbar: 'undo redo | forecolor backcolor | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image imagetools | codesample | fullscreen',
+            toolbar: 'undo redo | forecolor backcolor fontsizeselect | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image imagetools | codesample | fullscreen',
             menubar: false,
             Height: 400,
             file_browser_callback_types: 'file image',

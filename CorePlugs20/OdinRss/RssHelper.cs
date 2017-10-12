@@ -44,7 +44,7 @@ namespace CorePlugs20.OdinRss
                             new XElement(defaultNs+"uri",atomModel.AlternateLink),
                             new XElement(defaultNs+"email",atomModel.AuthorEmail)
                         ),
-                        new XElement(defaultNs+"content",item.Contents)
+                        new XElement(defaultNs+"content",new XCData(item.Contents))
                     )
                 );
             }

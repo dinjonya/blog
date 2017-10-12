@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using apiblog.Models;
@@ -327,8 +328,6 @@ namespace apiblog.Controllers
                 if(dbModel==null)
                     return new ResultData { Status = false, Data = "没有Blog配置文件，请联系管理员  -- 0xUpdateAboutMe01" };
                 string strParam = this.RouteData.Values["paramStr"].ToString();
-                System.Console.WriteLine($"result UpdateAboutMe:{strParam}");
-                System.Console.WriteLine($"strParam:{strParam}");
                 var aboutContent = JObject.Parse(strParam).GetValue("content").ToString();
                 dbModel.AboutMe = aboutContent;
                 db.Entry<BlogConfig_DbModel>(dbModel).State = EntityState.Modified;
@@ -445,7 +444,6 @@ namespace apiblog.Controllers
                 var postContent = JObject.Parse(strParam).GetValue("postContent").ToString();
                 var categoryId = Convert.ToInt32(JObject.Parse(strParam).GetValue("categoryId").ToString());
                 var tags = JObject.Parse(strParam).GetValue("tags").ToString();
-                System.Console.WriteLine(tags);
                 Post_DbModel postModel = new Post_DbModel
                 {
                     PostTitle = title,
@@ -458,7 +456,24 @@ namespace apiblog.Controllers
                 db.Entry<Post_DbModel>(postModel).State = EntityState.Added;
                 int i = db.SaveChanges();
                 if(i>0)
+                {
+                    //添加 Tag数量
+                    if(!string.IsNullOrWhiteSpace(tags))
+                    {
+                        List<string> tagIds = tags.Split(',').ToList();
+                        var tagResult = db.Tags.ToList();
+                        foreach (var tg in tagResult)
+                        {
+                            if(tagIds.Contains(tg.Id.ToString()))
+                            {
+                                tg.PostNum = tg.PostNum + 1;
+                            }
+                        }
+                        db.Tags.UpdateRange(tagResult);
+                        db.SaveChanges();                        
+                    }
                     return new ResultData { Status = true, Data = new { Message = "ok" } };
+                }
                 else
                     return new ResultData { Status = false, Data = "添加Post信息失败，请联系管理员  -- 0xAddPost01" };
                     

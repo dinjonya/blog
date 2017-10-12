@@ -12,6 +12,7 @@ namespace BlogModels.UiModel
         public int Id { get; set; }
         public string PostTitle { get; set; }
         public string PostDesc { get; set; }
+        public string PostContent { get; set; }
         public string PostTime { get; set; }    
         public int PostCategoryId { get; set; }
         public string PostCategory { get; set; }
