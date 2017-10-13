@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>OdinSam后台管理</title>
+    <link rel="stylesheet" href="/css/index.all.css" />
+    <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <link rel="stylesheet" href="https://raw.githubusercontent.com/bramp/js-sequence-diagrams/master/dist/sequence-diagram-min.css">
+</head>
+<body>
+    <!--    page header nav start   -->
+    <nav class="nav">
+        <!--    page header nav container start   -->
+        <div class="container">
+            <!--    header logo start   -->
+            <a href="/manager/index.html">
+                <h2 class="nav-title">OdinSam后台管理</h2>
+            </a>
+            <!--    header logo end   -->
+        </div>
+        <!--    page header nav container end   -->
+
+    </nav>
+    <!--    page header nav end   -->
+
+    <!--    page main start -->
+    <div class="main">
+        <div id="dvmarkdown">
+```sequence
+user->Send\nApi: Request send
+Send\nApi->Aop\nServer:validate
+Aop\nServer->RabbitMQ\nServer: add in MQ
+RabbitMQ\nServer->Send\nServer:get msg
+Note right of Send\nServer: Send sms
+Send\nServer-->Send\nApi:return Guid
+user-->Send\nApi:select Result by guid
+```
+</div>
+        <div id="dvshowdown" style="margin-top:60px;">
+
+        </div>
+    </div>
+    <!--    page main end -->
+
+    <!--    page footer start -->
+    <div class="footer">
+        <div class="copyright">
+            © 2017 by OdinSam
+        </div>
+    </div>
+    <!--    page footer end -->
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/js/showdown.min.js"></script>
+    <script src="/js/js.cookie.js"></script>
+    <script src="/js/jquery.ajax.dinjonya.js"></script>
+    <script src="/js/ajax.url.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/manage.index.js"></script>
+
+    <script src="https://bramp.github.io/js-sequence-diagrams/js/webfont.js"></script>
+    <script src="https://bramp.github.io/js-sequence-diagrams/js/snap.svg-min.js"></script>
+    <script src="https://bramp.github.io/js-sequence-diagrams/js/underscore-min.js"></script>
+    <script src="https://bramp.github.io/js-sequence-diagrams/js/sequence-diagram-min.js"></script>
+    
+    
+    <script>
+        $(function(){
+            App.init();
+            ManageIndex.init();
+
+            //获取要转换的文字
+            var txt = $("#dvmarkdown").html();
+            //创建实例
+            var converter = new showdown.Converter();
+            //进行转换
+            var html = converter.makeHtml(txt);
+            html = html.replace(/-&amp;gt;/g,"->");
+            alert(html);
+            //展示到对应的地方  result便是id名称
+            
+            
+            $("#dvshowdown").html(html);
+            $("#dvshowdown").sequenceDiagram({theme:"simple"});
+        })
+    </script>
+</body>
+</html>

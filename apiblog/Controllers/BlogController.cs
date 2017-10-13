@@ -93,7 +93,7 @@ namespace apiblog.Controllers
 
         /*
         接口简介: 获取Index页面的Post文章的接口，带分页
-        接口路径: apiblog/api1.0/Blog/GetPosts
+        接口路径: apiblog/api1.0/Blog/GetAllPosts
         请求方式: Get
         输入参数: PageIndex 当前页数  起始从 1 开始
         接口返回: Json格式
@@ -183,20 +183,22 @@ namespace apiblog.Controllers
             dbResult = dbResult.Where(p=>p.PostCategoryId == categoryId);
             int pageCount = dbResult.Count();
             pageCount = pageCount%pageSize==0? pageCount/pageSize : pageCount/pageSize+1;
+            var category = db.PostCategories.Where(c=>c.Id == categoryId).SingleOrDefault();
+            var cid = category!=null ? category.Id:-1;
+            var cname = category!=null ? category.CategoryName:"";
             var dbModels = (from post in dbResult 
-                            join c in db.PostCategories
-                            on post.PostCategoryId equals c.Id
+                            where post.PostCategoryId == cid
                             orderby post.PostTime descending
-                            select new IndexPost_Model
+                            select new CategoryPost_Model
                             {
                                 Id = post.Id,
                                 PostTitle = post.PostTitle,
                                 PostDesc = post.PostDescription,
                                 PostTime = post.PostTime,
-                                PostCategoryId = c.Id,
-                                PostCategory = c.CategoryName
+                                PostCategoryId = cid,
+                                PostCategory = cname
                             }).Skip((pageIndex-1)*pageSize).Take(pageSize).ToList();
-            Index_Model model = new Index_Model{ PageCount = pageCount, Posts = dbModels };
+            CategoryPosts_Model model = new CategoryPosts_Model{ PageCount = pageCount, Posts = dbModels,CategoryId = cid, CategoryName = cname };
             return new ResultData{ Status = true,Data = model };
         }
 
@@ -287,6 +289,10 @@ namespace apiblog.Controllers
             int pageIndex = PageIndex==null?1:Convert.ToInt32(PageIndex);
             string tagId = TagId.ToString();
             int pageSize = Program.Config.PageSize;
+            var tags = db.Tags.ToList();
+            var tag = tags.Where(t=>t.Id == TagId).SingleOrDefault();
+            var tid = tag!=null ? tag.Id:-1;
+            var tname = tag!=null ? tag.TagName:"";
             var dbResult =  db.Posts.Where(p=>p.Tags.Contains(tagId));
             int pageCount = dbResult.Count();
             pageCount = pageCount%pageSize==0? pageCount/pageSize : pageCount/pageSize+1;
@@ -294,16 +300,17 @@ namespace apiblog.Controllers
                             join c in db.PostCategories
                             on post.PostCategoryId equals c.Id
                             orderby post.PostTime descending
-                            select new IndexPost_Model
+                            select new TagPost_Model
                             {
                                 Id = post.Id,
                                 PostTitle = post.PostTitle,
                                 PostDesc = post.PostDescription,
                                 PostTime = post.PostTime,
                                 PostCategoryId = c.Id,
-                                PostCategory = c.CategoryName
+                                PostCategory = c.CategoryName,
+                                Tags = tags.Where(t=>post.Tags.Contains(t.Id.ToString())).Select(t=>new TagModel{ Id = t.Id, TagName = t.TagName }).ToList(),
                             }).Skip((pageIndex-1)*pageSize).Take(pageSize).ToList();
-            Index_Model model = new Index_Model{ PageCount = pageCount, Posts = dbModels };
+            TagPosts_Model model = new TagPosts_Model{ PageCount = pageCount, Posts = dbModels, TagId = tid, TagName = tname };
             return new ResultData{ Status = true,Data = model };
         }
 

@@ -65,8 +65,8 @@ var ManageAddPost = function(){
         tinymce.init({
             selector: '#textAreaPostdesc',
             theme: 'modern',
-            plugins: 'image,textcolor,codesample,colorpicker,fullscreen,link',
-            toolbar: 'undo redo | forecolor backcolor fontsizeselect | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image imagetools | codesample | fullscreen',
+            plugins: 'image,textcolor,codesample,colorpicker,fullscreen,link,hr,emoticons,lists',
+            toolbar: 'undo redo | forecolor backcolor fontsizeselect | styleselect | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image imagetools hr codesample emoticons | fullscreen',
             menubar: false,
             Height: 400,
             file_browser_callback_types: 'file image',
@@ -102,8 +102,8 @@ var ManageAddPost = function(){
         tinymce.init({
             selector: '#textAreaPostContent',
             theme: 'modern',
-            plugins: 'image,textcolor,codesample,colorpicker,fullscreen,link',
-            toolbar: 'undo redo | forecolor backcolor fontsizeselect | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image imagetools | codesample | fullscreen',
+            plugins: 'image,textcolor,codesample,colorpicker,fullscreen,link,hr,emoticons,lists',
+            toolbar: 'undo redo | forecolor backcolor fontsizeselect | styleselect | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image imagetools hr codesample emoticons | fullscreen',
             menubar: false,
             Height: 400,
             file_browser_callback_types: 'file image',
@@ -145,6 +145,8 @@ var ManageAddPost = function(){
             var postDesc = tinyMCE.editors[0].getContent();
             var postContent = tinyMCE.editors[1].getContent();
             var tags = $("#selTag").select2("val").toString();
+            var desc = $("#txtPostPageDescription").val();
+            var kw = $("#txtPostPageKeywords").val();
             jqAjax.ajax({
                 url:App.ajaxUri.Manager.AddPost.Uri,
                 method:App.ajaxUri.Manager.AddPost.Method,
@@ -153,10 +155,13 @@ var ManageAddPost = function(){
                     "postDesc":postDesc,
                     "postContent":postContent,
                     "categoryId":categoryId,    //int
-                    "tags":tags
+                    "tags":tags,
+                    "desc":desc,
+                    "kw":kw
                 }),
                 success:function(data){
                     alert("添加成功");
+                    window.location.href = window.location.href;
                 }
             });
         });

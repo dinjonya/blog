@@ -13,3 +13,6 @@
     line-height: 40px;
 }
 .footer{color: #bbb;text-align: center;}
+.footer a:link,.footer a:visited,.footer a:hover{
+    color: #bbb;
+}

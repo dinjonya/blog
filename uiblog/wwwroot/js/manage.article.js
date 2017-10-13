@@ -31,18 +31,29 @@ var ManageArticle=function(){
                 $("#tbody").html(html);
                 $(".deletePost").click(function(){
                     var postId = $(this).attr("data-val");
-                    jqAjax.ajax({
-                        url:App.ajaxUri.Manager.RemovePost.Uri,
-                        method:App.ajaxUri.Manager.RemovePost.Method,
-                        data:JSON.stringify({
-                            Id:postId
-                        }),
-                        success:function(data){
-                            if(data.Message=="ok"){
-                                alert("删除成功");
-                                handleShowArticleList(pi);
-                            }
-                        }
+                    $('#btn-dialogBox').dialogBox({
+                        hasClose: true,
+                        hasMask: true,
+                        hasBtn: true,
+                        confirmValue: 'Yes',
+                        confirm: function(){
+                            jqAjax.ajax({
+                                url:App.ajaxUri.Manager.RemovePost.Uri,
+                                method:App.ajaxUri.Manager.RemovePost.Method,
+                                data:JSON.stringify({
+                                    Id:postId
+                                }),
+                                success:function(data){
+                                    if(data.Message=="ok"){
+                                        alert("删除成功");
+                                        handleShowArticleList(pi);
+                                    }
+                                }
+                            });
+                        },
+                        cancelValue: 'No',
+                        title: '删除文章【 '+ postId +' 】',
+                        content: '确定要删除这篇文章吗?'
                     });
                 });
             }

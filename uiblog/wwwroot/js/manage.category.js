@@ -28,6 +28,47 @@ var ManageCategory=function(){
                 handleAddChildOptions(categories,categories[item].Id);
             }
         }
+
+        /* 表格数据 */
+        var result = data.Categories;
+        var html = "";
+        $("#tbody").html(html);
+        for (var index in result) {
+            html += "<tr style=\"height:50px;\">";
+            html += "<td>"+result[index]["Id"]+"</td>";
+            html += "<td>"+result[index]["CategoryName"]+"</td>";
+            html += "<td>"+result[index]["Pid"]+"</td>";
+            html += "<td><a href='#' class=\"deletePost\" data-val=\""+result[index]["Id"]+"\">删除</a></td>";
+            html += "</tr>"
+        }
+        $("#tbody").html(html);
+        $(".deletePost").click(function(){
+            var cId = $(this).attr("data-val");
+            $('#btn-dialogBox').dialogBox({
+                hasClose: true,
+                hasMask: true,
+                hasBtn: true,
+                confirmValue: 'Yes',
+                confirm: function(){
+                    jqAjax.ajax({
+                        url:App.ajaxUri.Manager.RemoveCategory.Uri,
+                        method:App.ajaxUri.Manager.RemoveCategory.Method,
+                        data:JSON.stringify({
+                            "cid":cId
+                        }),
+                        success:function(data){
+                            if(data.Message=="ok"){
+                                alert("删除成功");
+                                handleGetAllCategory();
+                            }
+                        }
+                    });
+                },
+                cancelValue: 'No',
+                title: '删除标签【 '+ cId +' 】',
+                content: '确定要删除这个标签吗?'
+            });
+        });
     }
     var handleAddChildOptions=function(categories,Pid){
         for (var item in categories) {

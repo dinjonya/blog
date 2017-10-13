@@ -24,7 +24,7 @@ ul.timeline li .version {
     top: 30px;
     font-size: 40px;
     line-height: 50px;
-    color: #e8f0f5;
+    color: #43B1F1;
     overflow: hidden;
 }
 ul.timeline li .number {
@@ -46,7 +46,7 @@ ul.timeline li .content {
     
 }
 ul.timeline li .content pre {
-    background-color: #e8f0f5;
+    background-color: #43B1F1;
     padding: 20px;
     color: #fff;
     font-size: 13px;  

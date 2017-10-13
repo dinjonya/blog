@@ -2,6 +2,16 @@
 
 ## 更新日志
 
+### v1.01(2017-10-13)
+
++ ?解决文本编辑器支持markdown的方案
++ 后台文章、标签、分类添加了删除操作
++ 所有页面添加了description和keywords
++ post表添加了description和keywords 字段
++ 添加文章  加入了description和keywords 字段
++ 找到了 页面 解析markdown 并 同时通过svg绘制 时序图的解决方案
++ 加入了百度统计
+
 ### v1.00(2017-10-12)
 
 + ?后台删除文章需要减去Tag表中文章数量

@@ -17,7 +17,7 @@
         "Apis":[
             {
                 "ApiName":"GetPosts",
-                "Uri":"http://http://101.201.232.99/:18080/",
+                "Uri":"http://127.0.0.1:18080/",
                 "UriPath":"apiblog/api1.0/Blog/GetPosts/"
             },
             {

@@ -218,6 +218,47 @@ namespace apiblog.Controllers
             }
         }
 
+
+        /*
+        接口简介: 按TagId删除对应的Tag标签
+        接口路径: apiblog/api1.0/BlogManager/RemoveCategory
+        请求方式: Put
+        输入参数: Json格式
+        {
+            "cid":CategoryId
+        }
+        接口返回: Json格式
+        {
+            Status = true,                  //业务成功还是 失败
+            Data = new { Message = "ok" }   //成功返回ok，失败 Data 返回信息  
+        }
+        */
+        [EnableCors("AllowSpecificOrigin")]
+        [Route("RemoveCategory")]
+        [HttpPut]
+        public ResultData RemoveCategory()
+        {
+            //验证身份
+            var result = Authen("RemoveCategory");
+            if(!result.Status)
+                return result;
+            else
+            {   
+                string strParam = this.RouteData.Values["paramStr"].ToString();
+                var cid = Convert.ToInt32(JObject.Parse(strParam).GetValue("cid").ToString());
+                var dbModel = db.PostCategories.Where(pc=>pc.Id==cid).SingleOrDefault();
+                if(dbModel==null)
+                    return new ResultData { Status = true, Data = "类别存在，无法删除  -- 0xRemoveCategory02" };
+                db.PostCategories.Remove(dbModel);
+                db.Entry<PostCategory_DbModel>(dbModel).State = EntityState.Deleted;
+                int i = db.SaveChanges();
+                if(i>0)
+                    return new ResultData { Status = true, Data = new { Message = "ok" } };
+                else
+                    return new ResultData { Status = false, Data = "添加失败，请联系管理员  -- 0xRemoveCategory03" };
+            }
+        }
+
         /*
         接口简介: 在线文本编辑器上传图片
         接口路径: apiblog/api1.0/BlogManager/UploadImage
@@ -226,7 +267,6 @@ namespace apiblog.Controllers
         接口返回: IActionResult  上传图片的前台访问路径
             return Json(new { location = returnPath });
         */
-        
         [EnableCors("AllowSpecificOrigin")]
         [Route("UploadImage")]
         [NoEncapsulates]
@@ -278,7 +318,6 @@ namespace apiblog.Controllers
             Data = new { Data = new { Message = dbModel.AboutMe } }  //成功about me的内容，失败返回信息  
         }
         */
-        
         [EnableCors("AllowSpecificOrigin")]
         [Route("SelectAbout/{rnd}")]
         [HttpGet]
@@ -312,7 +351,6 @@ namespace apiblog.Controllers
             Data = new { Data = new { Message = "ok" } }  //成功返回ok，失败 Data 返回信息  
         }
         */
-        
         [EnableCors("AllowSpecificOrigin")]
         [Route("UpdataAbout")]
         [HttpPut]
@@ -353,7 +391,6 @@ namespace apiblog.Controllers
             Data = new { Data = List<Tag_DbModel> }  //成功返回ok，失败 Data 返回信息  
         }
         */
-        
         [EnableCors("AllowSpecificOrigin")]
         [Route("GetAllTags/{rnd}")]
         [HttpGet]
@@ -385,7 +422,6 @@ namespace apiblog.Controllers
             Data = new { Data = new { Message = "ok" } }  //成功返回ok，失败 Data 返回信息  
         }
         */
-        
         [EnableCors("AllowSpecificOrigin")]
         [Route("AddTag")]
         [HttpPost]
@@ -406,6 +442,47 @@ namespace apiblog.Controllers
                 else
                     return new ResultData { Status = false, Data = "添加tag信息失败，请联系管理员  -- 0xAddTag01" };
                     
+            }
+        }
+
+
+        /*
+        接口简介: 按TagId删除对应的Tag标签
+        接口路径: apiblog/api1.0/BlogManager/RemoveTag
+        请求方式: Put
+        输入参数: Json格式
+        {
+            "tid":TagId
+        }
+        接口返回: Json格式
+        {
+            Status = true,                  //业务成功还是 失败
+            Data = new { Message = "ok" }   //成功返回ok，失败 Data 返回信息  
+        }
+        */
+        [EnableCors("AllowSpecificOrigin")]
+        [Route("RemoveTag")]
+        [HttpPut]
+        public ResultData RemoveTag()
+        {
+            //验证身份
+            var result = Authen("RemoveTag");
+            if(!result.Status)
+                return result;
+            else
+            {   
+                string strParam = this.RouteData.Values["paramStr"].ToString();
+                var tid = Convert.ToInt32(JObject.Parse(strParam).GetValue("tid").ToString());
+                var dbModel = db.Tags.Where(pc=>pc.Id==tid).SingleOrDefault();
+                if(dbModel==null)
+                    return new ResultData { Status = true, Data = "类别存在，无法删除  -- 0xRemoveTag02" };
+                db.Tags.Remove(dbModel);
+                db.Entry<Tag_DbModel>(dbModel).State = EntityState.Deleted;
+                int i = db.SaveChanges();
+                if(i>0)
+                    return new ResultData { Status = true, Data = new { Message = "ok" } };
+                else
+                    return new ResultData { Status = false, Data = "添加失败，请联系管理员  -- 0xRemoveTag03" };
             }
         }
 
@@ -444,6 +521,8 @@ namespace apiblog.Controllers
                 var postContent = JObject.Parse(strParam).GetValue("postContent").ToString();
                 var categoryId = Convert.ToInt32(JObject.Parse(strParam).GetValue("categoryId").ToString());
                 var tags = JObject.Parse(strParam).GetValue("tags").ToString();
+                var des = JObject.Parse(strParam).GetValue("desc").ToString();
+                var kw = JObject.Parse(strParam).GetValue("kw").ToString();
                 Post_DbModel postModel = new Post_DbModel
                 {
                     PostTitle = title,
@@ -451,7 +530,9 @@ namespace apiblog.Controllers
                     PostContent = postContent,
                     PostCategoryId = categoryId,
                     Tags = tags,
-                    PostTime = UnixTimeHelper.FromDateTime(DateTime.Now).ToString()
+                    PostTime = UnixTimeHelper.FromDateTime(DateTime.Now).ToString(),
+                    PostPageDescription = des,
+                    PostPageKeywords = kw
                 };
                 db.Entry<Post_DbModel>(postModel).State = EntityState.Added;
                 int i = db.SaveChanges();

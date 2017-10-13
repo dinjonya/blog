@@ -46,8 +46,8 @@ var ManageAbout = function(){
         tinymce.init({
             selector: '#editor1',
             theme: 'modern',
-            plugins: 'image,textcolor,codesample,colorpicker,fullscreen,link',
-            toolbar: 'undo redo | forecolor backcolor fontsizeselect | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image imagetools | codesample | fullscreen',
+            plugins: 'image,textcolor,codesample,colorpicker,fullscreen,link,hr,emoticons,lists',
+            toolbar: 'undo redo | forecolor backcolor fontsizeselect | styleselect | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image imagetools hr codesample emoticons | fullscreen',
             menubar: false,
             Height: 400,
             file_browser_callback_types: 'file image',

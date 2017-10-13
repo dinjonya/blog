@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>分类管理</title>
     <link rel="stylesheet" href="/css/index.all.css" />
+    <link rel="stylesheet" href="/css/jquery.dialogbox.css" />
     <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -37,6 +38,18 @@
         </div>
         <br />
        <div><input type="button" id="btnSubmit" value="修改" /></div>
+       <table style="width:100%;text-align:center;">
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>分类</th>
+                    <th>父级编号</th>
+                    <th>删除</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+        </table>
     </div>
     <!--    page main end -->
 
@@ -47,9 +60,10 @@
         </div>
     </div>
     <!--    page footer end -->
-
+    <div id="btn-dialogBox"></div>
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/js/js.cookie.js"></script>
+    <script src="/js/PageComponents/jquery.dialogBox.js"></script>
     <script src="/js/jquery.ajax.dinjonya.js"></script>
     <script src="/js/ajax.url.js"></script>
     <script src="/js/app.js"></script>

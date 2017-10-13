@@ -1,0 +1,73 @@
+@using MarkdownSharp
+@{
+    ViewData["Title"] = @Html.Raw("首页");
+    ViewData["Description"] = @Html.Raw("OdinSam博客专注于.Net、.Net Core、Asp.net Mvc的技术博客,记录项目开发、设计架构的点点滴滴!");
+    ViewData["Keywords"] = @Html.Raw("博客,.Net,.Net Core,Asp.net Mvc");
+}
+@section Styles{
+    <link rel="stylesheet" href="/css/index.all.css" />
+    <link rel="stylesheet" href="https://raw.githubusercontent.com/bramp/js-sequence-diagrams/master/dist/sequence-diagram-min.css">
+}
+@section Scripts{
+    <script src="/js/index.js"></script>
+    <script src="/js/showdown.min.js"></script>
+    <script src="https://bramp.github.io/js-sequence-diagrams/js/webfont.js"></script>
+    <script src="https://bramp.github.io/js-sequence-diagrams/js/snap.svg-min.js"></script>
+    <script src="https://bramp.github.io/js-sequence-diagrams/js/underscore-min.js"></script>
+    <script src="https://bramp.github.io/js-sequence-diagrams/js/sequence-diagram-min.js"></script>
+    <script>
+        $(function(){
+                //获取要转换的文字
+                var txt = $(".dvmarkdown").html();
+                //创建实例
+                var converter = new showdown.Converter();
+                //进行转换
+                var html = converter.makeHtml(txt);
+                html = html.replace(/-&amp;gt;/g,"->");
+                //展示到对应的地方  result便是id名称
+                $(".dvmarkdown").html(html);
+                $(".dvmarkdown").sequenceDiagram({theme:"simple"});
+
+
+                txt = $("#dvmark").html();
+                //进行转换
+                html = converter.makeHtml(txt);
+                //展示到对应的地方  result便是id名称
+                $("#dvmark").html(html);
+        })
+    </script>
+}
+@{
+    string md = @"
+<div id='dvmark'>
+# title
+# title2
+</div>
+<div class='dvmarkdown'>
+```sequence
+user->Send\nApi: Request send
+Send\nApi->Aop\nServer:validate
+Aop\nServer->RabbitMQ\nServer: add in MQ
+RabbitMQ\nServer->Send\nServer:get msg
+Note right of Send\nServer: Send sms
+Send\nServer-->Send\nApi:return Guid
+user-->Send\nApi:select Result by guid
+```
+</div>
+
+<div class='dvmarkdown'>
+```sequence
+user->Send\nApi: Request send
+Send\nApi->Aop\nServer:validate
+Send\nApi--file\nServer:save send files
+Aop\nServer->RabbitMQ\nServer: add in MQ
+RabbitMQ\nServer->Send\nServer:get msg
+file\nServer-->Send\nServer:get send files
+Note right of Send\nServer: Send mail
+```
+</div>";
+    Markdown mark = new Markdown();
+    string str = mark.Transform(md);
+}
+
+@Html.Raw(str)

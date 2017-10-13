@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using BlogModels.UiModel;
 using CorePlugs20.Models;
 using CorePlugs20.WebApi;
@@ -23,6 +24,7 @@ namespace uiblog.Controllers
                                         Program.Config.BlogUi["GetCategories"].UriPath+q1).Value.Data;
             var pageModel = JObject.Parse(JsonConvert.SerializeObject(result)).ToObject<Category_Model>();
             return View(pageModel);
+            
         }
 
         
@@ -37,7 +39,7 @@ namespace uiblog.Controllers
                 result = ApiHelper.GetWebApi<ApiResultModel>(
                                         Program.Config.BlogUi["GetPostsByCategory"].Uri,
                                         Program.Config.BlogUi["GetPostsByCategory"].UriPath+q1+"/"+q2).Value.Data;
-            var pageModel = JObject.Parse(JsonConvert.SerializeObject(result)).ToObject<Index_Model>();
+            var pageModel = JObject.Parse(JsonConvert.SerializeObject(result)).ToObject<CategoryPosts_Model>();
             return View(pageModel);
         }
     }

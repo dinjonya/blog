@@ -1,9 +1,12 @@
 @using BlogModels.UiModel
 @using CorePlugs20.TimeHelper
-@model Index_Model
+@model CategoryPosts_Model
 @{
-    ViewData["Title"] = "类别文章";
+    ViewData["Title"] = @Html.Raw("类别文章");
+    ViewData["Description"] = @Html.Raw($"OdinSam博客{Model.CategoryName}类别的所有文章");
+    ViewData["Keywords"] = @Html.Raw($"{Model.CategoryName},类别文章,博客");
 }
+
 @section Styles{
     <link rel="stylesheet" href="/css/index.all.css" />
 }
@@ -26,7 +29,7 @@
             <header class="post-header">
             <h2 class="post-title">
             <a class="post-title-link" href="/blog/post/@(post.Id)">
-            @(post.PostTitle)
+            @Html.Raw(post.PostTitle)
             </a>
             </h2>
             <div class="post-meta">
@@ -47,7 +50,7 @@
             <span class="post-meta-item-text">分类于</span> 
             <span>
             <a href="/blog/category/post/@(post.PostCategoryId)" rel="index">
-            <span itemprop="name">@(post.PostCategory)</span>
+            <span itemprop="name">@Html.Raw(post.PostCategory)</span>
             </a>
             </span>
             </span>

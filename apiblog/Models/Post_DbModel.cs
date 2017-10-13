@@ -21,6 +21,20 @@ namespace apiblog.Models
         public string PostTitle { get; set; }
 
         /// <summary>
+        /// Post页面描述
+        /// </summary>
+        /// <returns></returns>
+        [StringLength(128)]
+        public string PostPageDescription { get; set; }
+
+        /// <summary>
+        /// Post页面关键字
+        /// </summary>
+        /// <returns></returns>
+        [StringLength(128)]
+        public string PostPageKeywords { get; set; }
+
+        /// <summary>
         /// 简介
         /// </summary>
         /// <returns></returns>

@@ -2,7 +2,9 @@
 @using CorePlugs20.TimeHelper
 @model Index_Model
 @{
-    ViewData["Title"] = "文章归档";
+    ViewData["Title"] = @Html.Raw("文章归档");
+    ViewData["Description"] = @Html.Raw("OdinSam博客文章的归档，以时间轴的形式展示了OdinSam博客的所有文章.!");
+    ViewData["Keywords"] = @Html.Raw("OdinSam,归档,时间轴");
 }
 @section Styles{
     <link rel="stylesheet" href="/css/index.all.css" />

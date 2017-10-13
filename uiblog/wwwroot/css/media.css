@@ -35,7 +35,7 @@
     .nav .container ul li:last-child{margin-left:5px;}
     .nav .container ul li{display: inline-block;margin-right:5px;margin-left:5px;}
     .nav .container .menu-icon{display: none;}
-    .footer{line-height: 60px;height: 60px;font-size: 14px;}
+    .footer{height: 60px;font-size: 14px;}
 }
 /*  ipad */
 @media screen and (min-width: 768px){

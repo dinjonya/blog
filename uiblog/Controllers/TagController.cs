@@ -32,7 +32,7 @@ namespace uiblog.Controllers
                                         Program.Config.BlogUi["GetPostByTag"].Uri,
                                         Program.Config.BlogUi["GetPostByTag"].UriPath+q1+"/"+q2).Value.Data;
             
-            var pageModel = JObject.Parse(JsonConvert.SerializeObject(result)).ToObject<Index_Model>();
+            var pageModel = JObject.Parse(JsonConvert.SerializeObject(result)).ToObject<TagPosts_Model>();
             return View(pageModel);
         }
     }

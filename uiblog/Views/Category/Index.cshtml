@@ -2,7 +2,9 @@
 @using CorePlugs20.TimeHelper
 @model Category_Model
 @{
-    ViewData["Title"] = "类别文章";
+    ViewData["Title"] = @Html.Raw("文章分类");
+    ViewData["Description"] = @Html.Raw($"OdinSam博客所有文章的分类，包含了:{string.Join("、",Model.Categories.Select(c=>c.CategoryName).ToList())}");
+    ViewData["Keywords"] = @Html.Raw($"{string.Join(",",Model.Categories.Select(c=>c.CategoryName).ToList())},文章分类,博客");
 }
 @section Styles{
     <link rel="stylesheet" href="/css/index.all.css" />
@@ -22,7 +24,7 @@
         /*Post 显示*/
         foreach(var category in Model.Categories){
             <div class="dvcategory">
-                <a href="/blog/category/post/@(category.CategoryId)">@(category.CategoryName)【 @(category.PostNum) 】</a>
+                <a href="/blog/category/post/@(category.CategoryId)">@Html.Raw(category.CategoryName)【 @Html.Raw(category.PostNum) 】</a>
             </div>
         }
     }

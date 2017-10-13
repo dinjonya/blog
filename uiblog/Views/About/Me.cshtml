@@ -1,7 +1,9 @@
 @using BlogModels.UiModel
 @model AboutMe_Model
 @{
-    ViewData["Title"] = "关于";
+    ViewData["Title"] = @Html.Raw("关于我");
+    ViewData["Description"] = @Html.Raw("OdinSam的个人简介,并且包含了OdinSam的个人经历和每年的年终总结.!");
+    ViewData["Keywords"] = @Html.Raw("OdinSam,个人简介,个人经历,年终总结");
 }
 @section Styles{
     <link rel="stylesheet" href="/css/index.all.css" />
