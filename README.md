@@ -2,6 +2,14 @@
 
 ## 更新日志
 
+### v1.01(2017-10-16)
+
++ ?显示文章信息 创建页面 调试接口
++ 解决markdown在html页面的解析问题，但是table依然不能解析
++ 解决markdown解析时序图的内容
++ tinymce添加了markdown sequence两个自定义工具栏，并实现对应功能
++ 添加文章  加入了description和keywords 字段
+
 ### v1.01(2017-10-13)
 
 + ?解决文本编辑器支持markdown的方案

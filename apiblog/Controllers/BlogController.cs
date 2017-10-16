@@ -377,5 +377,63 @@ namespace apiblog.Controllers
             return new ResultData{ Status = true,Data = new AboutMe_Model{ Me = aboutme } };
 
         }
+
+        /*
+        接口简介: 按照文章Id获取文章信息，以及获取上一篇文章与下一篇的title和Id
+        接口路径: apiblog/api1.0/Blog/GetPostArticle
+        请求方式: Get
+        输入参数: postId 当前文章Id
+        接口返回: Json格式
+        {
+            statue = true,   //业务逻辑是否成功 失败返回false
+            Data=new { Article = Article_Model }     // 成功返回AboutMe_Model展示信息 失败返回错误信息
+        }
+        */
+        
+        [EnableCors("AllowSpecificOrigin")]
+        [Route("GetPostArticle")]
+        [HttpGet]
+        public ResultData GetPostArticle(int postId)
+        {
+            var dbResult =  db.Posts.Where(p=>p.Id==postId);
+            if(dbResult.Count()==1)
+                return new ResultData{ Status = false,Data = "文章查找不正确" };
+            var dbModels = (from post in dbResult
+                            join c in db.PostCategories
+                            on post.PostCategoryId equals c.Id
+                            where post.Id == postId
+                            orderby post.PostTime descending
+                            select new Article_Model
+                            {
+                                Id = post.Id,
+                                PostTitle = post.PostTitle,
+                                PostPageKeywords = post.PostPageKeywords,
+                                PostDescription = post.PostDescription,
+                                PostContent = post.PostContent,
+                                PostTime = post.PostTime,
+                                PostCategoryId = c.Id,
+                                PostCategoryName = c.CategoryName,
+                                Tags = new List<TagModel>()
+                            }).Single();
+            foreach (var tag in dbResult.Single().Tags.Split(',').ToList())
+            {
+                int tt = Convert.ToInt32(tag);
+                dbModels.Tags.Add(new TagModel { Id = tt, TagName = db.Tags.Where(t=>t.Id==tt).Single().TagName });
+            }
+
+            var provious = db.Posts.Where(p=>p.Id<dbResult.Single().Id).FirstOrDefault();
+            if(provious!=null)
+                dbModels.PreviousPost = new NeighborPost { Id = provious.Id, PostTitle = provious.PostTitle };
+            else
+                dbModels.PreviousPost = null;
+
+            var next = db.Posts.Where(p=>p.Id>dbResult.Single().Id).FirstOrDefault();
+            if(next!=null)
+                dbModels.NextPost = new NeighborPost { Id = next.Id, PostTitle = next.PostTitle };
+            else
+                dbModels.NextPost = null;
+
+            return new ResultData{ Status = true,Data = dbModels };
+        }
     }
 }

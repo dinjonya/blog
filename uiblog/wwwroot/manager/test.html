@@ -28,20 +28,26 @@
 
     <!--    page main start -->
     <div class="main">
-        <div id="dvmarkdown">
-```sequence
-user->Send\nApi: Request send
-Send\nApi->Aop\nServer:validate
-Aop\nServer->RabbitMQ\nServer: add in MQ
-RabbitMQ\nServer->Send\nServer:get msg
-Note right of Send\nServer: Send sms
-Send\nServer-->Send\nApi:return Guid
-user-->Send\nApi:select Result by guid
-```
+<p>以下内容为<strong>markdown</strong>内容</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div class="dvmark">
+<pre><code>|参数名|set必选|get必选|类型|说明|
+|:----    |:---|:----- |:---  |:---|
+|udcid|是|是|long|用户udcid|</code></pre>
 </div>
-        <div id="dvshowdown" style="margin-top:60px;">
-
-        </div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div class="dvsequence">
+<pre><code></code></pre>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+            
     </div>
     <!--    page main end -->
 
@@ -60,10 +66,10 @@ user-->Send\nApi:select Result by guid
     <script src="/js/app.js"></script>
     <script src="/js/manage.index.js"></script>
 
-    <script src="https://bramp.github.io/js-sequence-diagrams/js/webfont.js"></script>
-    <script src="https://bramp.github.io/js-sequence-diagrams/js/snap.svg-min.js"></script>
-    <script src="https://bramp.github.io/js-sequence-diagrams/js/underscore-min.js"></script>
-    <script src="https://bramp.github.io/js-sequence-diagrams/js/sequence-diagram-min.js"></script>
+    <script src="/js/webfont.js"></script>
+    <script src="/js/snap.svg-min.js"></script>
+    <script src="/js/underscore-min.js"></script>
+    <script src="/js/sequence-diagram-min.js"></script>
     
     
     <script>
@@ -71,19 +77,27 @@ user-->Send\nApi:select Result by guid
             App.init();
             ManageIndex.init();
 
-            //获取要转换的文字
-            var txt = $("#dvmarkdown").html();
             //创建实例
             var converter = new showdown.Converter();
+            var txt = $(".dvmark").html();
+            txt = txt.replace(/<pre><code>/g,"");
+            txt = txt.replace(/<\/code><\/pre>/g,"");
+            //进行转换
+            var html = converter.makeHtml(txt);
+            //展示到对应的地方  result便是id名称
+            $(".dvmark").html(html);
+
+            //获取要转换的文字
+            txt = $(".dvsequence").html();
             //进行转换
             var html = converter.makeHtml(txt);
             html = html.replace(/-&amp;gt;/g,"->");
-            alert(html);
             //展示到对应的地方  result便是id名称
+            $(".dvsequence").html(html);
+            $(".dvsequence").sequenceDiagram({theme:"simple"});
+
+
             
-            
-            $("#dvshowdown").html(html);
-            $("#dvshowdown").sequenceDiagram({theme:"simple"});
         })
     </script>
 </body>

@@ -11,8 +11,6 @@ public class FileController : Controller
 {
     public IActionResult Index()
     {
-        
-
         Object result = ApiHelper.GetWebApi<ApiResultModel>(
                                         Program.Config.BlogUi["GetAllPosts"].Uri,
                                         Program.Config.BlogUi["GetAllPosts"].UriPath).Value.Data;

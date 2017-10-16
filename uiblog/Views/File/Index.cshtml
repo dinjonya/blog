@@ -33,7 +33,7 @@ var dt = UnixTimeHelper.FromUnixTime(Convert.ToInt64(post.PostTime));
         <!-- <div class="version">@(dt.ToString("yyyy-MM-dd"))</div> -->
         <div class="number"></div>
         <div class="content">
-            <a href="/blog/post/@(post.Id)"><pre>
+            <a href="/blog/Post/Article/@(post.Id)"><pre>
 @Html.Raw(post.PostDesc)
             </pre></a>
         </div>

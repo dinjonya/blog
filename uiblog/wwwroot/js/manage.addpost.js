@@ -66,7 +66,7 @@ var ManageAddPost = function(){
             selector: '#textAreaPostdesc',
             theme: 'modern',
             plugins: 'image,textcolor,codesample,colorpicker,fullscreen,link,hr,emoticons,lists',
-            toolbar: 'undo redo | forecolor backcolor fontsizeselect | styleselect | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image imagetools hr codesample emoticons | fullscreen',
+            toolbar: 'undo redo | forecolor backcolor fontsizeselect | styleselect | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image imagetools hr codesample emoticons | markdown sequence | fullscreen ',
             menubar: false,
             Height: 400,
             file_browser_callback_types: 'file image',
@@ -97,13 +97,33 @@ var ManageAddPost = function(){
                 console.log(blobInfo.name());
                 formData.append('file', blobInfo.blob(), blobInfo.name());
                 xhr.send(formData);
+            },
+            setup: function (editor) {
+                editor.addButton('markdown', {
+                    text: 'markdown',
+                    icon: false,
+                    onclick: function () {
+                      //editor.insertContent('&nbsp;<b>It\'s my button!</b>&nbsp;');
+                      var content = editor.selection.getContent({ 'format' : 'text' });
+                      editor.selection.setContent("<div class='dvmark'><pre><code>"+content+"</code></pre></div>");
+                    }
+                });
+                editor.addButton('sequence', {
+                    text: 'sequence',
+                    icon: false,
+                    onclick: function () {
+                      //editor.insertContent('&nbsp;<b>It\'s my button!</b>&nbsp;');
+                      var content = editor.selection.getContent({ 'format' : 'text' });
+                      editor.selection.setContent("<div class='dvsequence'><pre><code>"+content+"</code></pre></div>");
+                    }
+                });
             }
         });
         tinymce.init({
             selector: '#textAreaPostContent',
             theme: 'modern',
             plugins: 'image,textcolor,codesample,colorpicker,fullscreen,link,hr,emoticons,lists',
-            toolbar: 'undo redo | forecolor backcolor fontsizeselect | styleselect | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image imagetools hr codesample emoticons | fullscreen',
+            toolbar: 'undo redo | forecolor backcolor fontsizeselect | styleselect | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image imagetools hr codesample emoticons | markdown sequence | fullscreen ',
             menubar: false,
             Height: 400,
             file_browser_callback_types: 'file image',
@@ -134,6 +154,24 @@ var ManageAddPost = function(){
                 console.log(blobInfo.name());
                 formData.append('file', blobInfo.blob(), blobInfo.name());
                 xhr.send(formData);
+            },
+            setup: function (editor) {
+                editor.addButton('markdown', {
+                    text: 'markdown',
+                    icon: false,
+                    onclick: function () {
+                      var content = editor.selection.getContent({ 'format' : 'text' });
+                      editor.selection.setContent("<div class='dvmark'><pre><code>"+content+"</code></pre></div>");
+                    }
+                });
+                editor.addButton('sequence', {
+                    text: 'sequence',
+                    icon: false,
+                    onclick: function () {
+                      var content = editor.selection.getContent({ 'format' : 'text' });
+                      editor.selection.setContent("<div class='dvsequence'><pre><code>"+content+"</code></pre></div>");
+                    }
+                });
             }
         });
     }
