@@ -1,0 +1,31 @@
+/*  iphone4 iphone5 iphone5s */
+@media only screen and (min-width: 320px) {
+    .ArticleTitle{ font-size: 20px;text-align: center;padding:10px 5px;font-weight:bold; }
+    .Articledesc{ text-align: center;font-size:14px;color:#888;padding:0px 5px; }
+    .ArticleContent{ margin:10px auto;min-height: 240px;padding:0px 10px; }
+    .ArticleTag { font-size:14px;color:#888; }
+    .ArticleNeightbor{ padding:0px 0px 0px 0px;font-size:14px;overflow:auto;color:#888; }
+    .ArticleNeightborProvious{display: block;}
+    .ArticleNeightborNext{display: block;}
+    .ArticleNeightbor a:link,.ArticleNeightbor a:visited,.ArticleNeightbor a:hover{color:#888;text-decoration:none; }
+}
+/*  iphone6 */
+@media only screen and (min-width: 375px) {
+    /* .nav{ height:50px; }*/
+    .ArticleNeightbor{ padding:15px 0px 0px 0px; }
+}
+/*  iphone6p */
+@media screen and (min-width: 414px){
+    .ArticleTitle{ font-size: 24px;text-align: center;padding:10px 5px;font-weight:bold; }
+    .Articledesc{ text-align: center;font-size:16px;color:#888;padding:0px 5px; }
+    .ArticleTag { font-size:16px; }
+    .ArticleNeightbor{ padding:15px 0px 0px 0px; }
+}
+/*  ipad */
+@media screen and (min-width: 768px){
+    
+}
+/*  pc */
+@media screen and (min-width:1200px){
+
+}

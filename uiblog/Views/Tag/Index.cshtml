@@ -16,7 +16,7 @@
         })
     </script>
 }
-<div style="margin:20px auto;line-height:50px;">
+<div style="padding:20px auto;line-height:50px;">
     @{
         foreach(var tag in Model.Tags){
             <span style="margin:0px 10px;"> <a href="/blog/Tag/post/@(tag.Id)"> @Html.Raw(tag.TagName) (@(tag.PostNum)) </a> </span>

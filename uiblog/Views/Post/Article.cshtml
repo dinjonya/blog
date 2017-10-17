@@ -1,0 +1,63 @@
+@using BlogModels.UiModel
+@using CorePlugs20.TimeHelper
+@model Article_Model
+@{
+    ViewData["Title"] = @Html.Raw(Model.PostTitle);
+    ViewData["Description"] = @Html.Raw(Model.PostDescription);
+    ViewData["Keywords"] = @Html.Raw(Model.PostPageKeywords);
+}
+@section Styles{
+    <link rel="stylesheet" href="/css/index.all.css" />
+    <link rel="stylesheet" href="/css/post.css" />
+}
+@section Scripts{
+    <script src="/js/showdown.min.js"></script>
+    <script src="/js/webfont.js"></script>
+    <script src="/js/snap.svg-min.js"></script>
+    <script src="/js/underscore-min.js"></script>
+    <script src="/js/sequence-diagram-min.js"></script>
+    <script src="/js/markdown.Convert.js"></script>
+    <script>
+        $(function() {
+            markDown.init();
+        });
+    </script>
+}
+<div class="ArticleTitle">
+    @Html.Raw(Model.PostTitle)
+</div>
+<div class="Articledesc">
+    <span>
+        <i class="menu-item-icon fa fa-fw fa-th"></i> 
+        <a href="/blog/category/post/@(Model.PostCategoryId)">@Html.Raw(Model.PostCategoryName)</a>
+    </span>
+    <span>
+        <i class="fa fa-clock-o"></i> 
+        <a href="/blog/date/@(Model.PostTime.Year)/@(Model.PostTime.Month)" rel="index">@(Model.PostTime.ToString("yyyy-MM-dd"))</a> 
+    </span>
+</div>
+<div class="ArticleContent">
+    @Html.Raw(Model.PostContent)
+</div>
+<div class="ArticleTag">
+    <span>
+        <i class="fa fa-tags"></i> 标签:
+        @foreach(var t in Model.Tags){
+            <span> <a href="/blog/Tag/post/@(t.Id)"> @Html.Raw(t.TagName) </a></span>
+        }
+    </span>
+</div>
+<div class="ArticleNeightbor">
+    <span class="ArticleNeightborProvious">
+        上一篇:
+        <a href="@(Model.PreviousPost!=null?Html.Raw($"/blog/Post/Article/{Model.PreviousPost.Id}").ToString():"#")">
+            @(Model.PreviousPost!=null?Html.Raw(Model.PreviousPost.PostTitle).ToString():"无")
+        </a>
+    </span>
+    <span class="ArticleNeightborNext">
+        下一篇:
+        <a href="@(Model.NextPost!=null?Html.Raw($"/blog/Post/Article/{Model.NextPost.Id}").ToString():"#")">
+            @(Model.NextPost!=null?Html.Raw(Model.NextPost.PostTitle).ToString():"无")
+        </a>
+    </span>
+</div>

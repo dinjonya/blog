@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace BlogModels.UiModel
@@ -12,7 +13,7 @@ namespace BlogModels.UiModel
         public int PostCategoryId { get; set; }
         public string PostCategoryName { get; set; }
         public List<TagModel> Tags { get; set; }
-        public string PostTime { get; set; }
+        public DateTime PostTime { get; set; }
 
         public NeighborPost PreviousPost { get; set; }
 

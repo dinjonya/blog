@@ -13,7 +13,7 @@ var App=function(){
         var footerHeight = $(".footer").height();
         var mainHeight = $(".main").height();
         if(windowHeight-headerHeight-footerHeight-10-20 > mainHeight)
-            $(".main").css("min-height",windowHeight-headerHeight-footerHeight-30+"px");
+            $(".main").css("min-height",windowHeight-headerHeight-footerHeight-65+"px");
     }
 
     var handleNavMenuToggle = function(){

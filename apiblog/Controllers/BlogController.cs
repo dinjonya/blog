@@ -6,6 +6,7 @@ using BlogModels.MongoKv;
 using BlogModels.UiModel;
 using CorePlugs20.Models;
 using CorePlugs20.OdinMongo;
+using CorePlugs20.TimeHelper;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -102,7 +103,6 @@ namespace apiblog.Controllers
             Data=new { PageCount = pageCount,Posts = List<IndexPost_Model> }     // 成功返回Post展示信息 失败返回错误信息
         }
         */
-        [EnableCors("AllowSpecificOrigin")]
         [Route("GetAllPosts")]
         [HttpGet]
         public ResultData GetAllPosts()
@@ -132,7 +132,6 @@ namespace apiblog.Controllers
             Data=new { PageCount = pageCount,Posts = List<IndexPost_Model> }     // 成功返回Post展示信息 失败返回错误信息
         }
         */
-        [EnableCors("AllowSpecificOrigin")]
         [Route("GetPosts/{PageIndex}")]
         [HttpGet]
         public ResultData GetPosts(int PageIndex)
@@ -172,7 +171,6 @@ namespace apiblog.Controllers
             Data=new { PageCount = pageCount,Posts = List<IndexPost_Model> }     // 成功返回Post展示信息 失败返回错误信息
         }
         */
-        [EnableCors("AllowSpecificOrigin")]
         [Route("GetPostsByCategory/{categoryId}/{PageIndex?}")]
         [HttpGet]
         public ResultData GetPostsByCategory(int categoryId,int? PageIndex)
@@ -216,7 +214,6 @@ namespace apiblog.Controllers
             Data=new { PageCount = pageCount,Posts = List<CategoryModel> }     // 成功返回Post展示信息 失败返回错误信息
         }
         */
-        [EnableCors("AllowSpecificOrigin")]
         [Route("GetCategories/{PageIndex?}")]
         [HttpGet]
         public ResultData GetCategories(int? PageIndex)
@@ -252,7 +249,6 @@ namespace apiblog.Controllers
             Data=new { PageCount = pageCount,Posts = List<CategoryModel> }     // 成功返回Post展示信息 失败返回错误信息
         }
         */
-        [EnableCors("AllowSpecificOrigin")]
         [Route("GetTags")]
         [HttpGet]
         public ResultData GetTags()
@@ -281,7 +277,6 @@ namespace apiblog.Controllers
             Data=new { PageCount = pageCount,Posts = List<CategoryModel> }     // 成功返回Post展示信息 失败返回错误信息
         }
         */
-        [EnableCors("AllowSpecificOrigin")]
         [Route("GetPostByTag/{TagId}/{PageIndex?}")]
         [HttpGet]
         public ResultData GetPostByTag(int TagId,int? PageIndex)
@@ -327,7 +322,6 @@ namespace apiblog.Controllers
         }
         */
         
-        [EnableCors("AllowSpecificOrigin")]
         [Route("GetPostByRss")]
         [HttpGet]
         public ResultData GetPostByRss()
@@ -365,7 +359,6 @@ namespace apiblog.Controllers
         }
         */
         
-        [EnableCors("AllowSpecificOrigin")]
         [Route("GetAboutMe")]
         [HttpGet]
         public ResultData GetAboutMe()
@@ -390,15 +383,15 @@ namespace apiblog.Controllers
         }
         */
         
-        [EnableCors("AllowSpecificOrigin")]
-        [Route("GetPostArticle")]
+        [Route("GetPostArticle/{postId}")]
         [HttpGet]
         public ResultData GetPostArticle(int postId)
         {
             var dbResult =  db.Posts.Where(p=>p.Id==postId);
-            if(dbResult.Count()==1)
+            if(dbResult.Count()!=1)
                 return new ResultData{ Status = false,Data = "文章查找不正确" };
-            var dbModels = (from post in dbResult
+            long pt = Convert.ToInt64(dbResult.Single().PostTime);
+            Article_Model dbModels = (from post in dbResult
                             join c in db.PostCategories
                             on post.PostCategoryId equals c.Id
                             where post.Id == postId
@@ -408,13 +401,13 @@ namespace apiblog.Controllers
                                 Id = post.Id,
                                 PostTitle = post.PostTitle,
                                 PostPageKeywords = post.PostPageKeywords,
-                                PostDescription = post.PostDescription,
+                                PostDescription = post.PostPageDescription,
                                 PostContent = post.PostContent,
-                                PostTime = post.PostTime,
+                                PostTime = UnixTimeHelper.FromUnixTime(pt),
                                 PostCategoryId = c.Id,
-                                PostCategoryName = c.CategoryName,
-                                Tags = new List<TagModel>()
+                                PostCategoryName = c.CategoryName
                             }).Single();
+            dbModels.Tags=new List<TagModel>();
             foreach (var tag in dbResult.Single().Tags.Split(',').ToList())
             {
                 int tt = Convert.ToInt32(tag);
@@ -432,7 +425,6 @@ namespace apiblog.Controllers
                 dbModels.NextPost = new NeighborPost { Id = next.Id, PostTitle = next.PostTitle };
             else
                 dbModels.NextPost = null;
-
             return new ResultData{ Status = true,Data = dbModels };
         }
     }

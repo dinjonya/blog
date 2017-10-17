@@ -6,6 +6,7 @@
     .nav .container>a{display: inline-block;}
     .nav .container ul{margin-top:0px;display: none;}
     .nav .container .menu-icon{display:block; height: 18px;width:18px;position: absolute;top:10px;right:10px; }
+    .main{ padding:20px 0px 0px  0px; }
     .post { padding: 15px 10px; line-height: 2; }
     .post .post-header { text-align: center; }
     .post .post-header .post-title a { font-size: 20px;}
