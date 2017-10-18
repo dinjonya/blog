@@ -185,6 +185,8 @@ var ManageAddPost = function(){
             var tags = $("#selTag").select2("val").toString();
             var desc = $("#txtPostPageDescription").val();
             var kw = $("#txtPostPageKeywords").val();
+            postDesc = postDesc.replace(/src="../images/upload/g,"src=\"/images/upload");
+            postContent = postContent.replace(/src="../images/upload/g,"src=\"/images/upload");
             jqAjax.ajax({
                 url:App.ajaxUri.Manager.AddPost.Uri,
                 method:App.ajaxUri.Manager.AddPost.Method,

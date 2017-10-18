@@ -10,7 +10,8 @@ namespace apiblog.Models
                 Salt = "jAxNzA5MjAxMDQ0NTM=",
                 OwnerPwd = "a0ea836ecf0544887c74f9eab8069cdc",
                 BlogTitle = "OdinSam的博客",
-                AboutMe = ""
+                AboutMe = "",
+                PostAutograph = ""
             };
             blogEntities.BlogConfigs.Add(blogModel);
 

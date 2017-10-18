@@ -10,8 +10,10 @@ namespace uiblog.Controllers
 {
     public class PostController : Controller
     {
-        public IActionResult Article(int q1)
+        public IActionResult Article(int? q1)
         {
+            if(q1==null)
+                return RedirectPermanent("/Home/Index"); 
             Object result = null;
             result = ApiHelper.GetWebApi<ApiResultModel>(           
                                     Program.Config.BlogUi["GetPostArticle"].Uri,

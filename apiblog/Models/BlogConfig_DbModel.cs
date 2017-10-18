@@ -46,5 +46,11 @@ namespace apiblog.Models
         /// </summary>
         /// <returns></returns>
         public string AboutMe { get; set; }
+
+        /// <summary>
+        /// 文章签名
+        /// </summary>
+        /// <returns></returns>
+        public string PostAutograph { get; set; }
     }
 }

@@ -123,7 +123,7 @@ namespace apiblog.Controllers
 
         /*
         接口简介: 获取Index页面的Post文章的接口，带分页
-        接口路径: apiblog/api1.0/Blog/GetPosts
+        接口路径: apiblog/api1.0/Blog/GetPosts/{PageIndex}
         请求方式: Get
         输入参数: PageIndex 当前页数  起始从 1 开始
         接口返回: Json格式
@@ -160,7 +160,7 @@ namespace apiblog.Controllers
 
         /*
         接口简介: 获取Index页面的Post文章的接口，带分页
-        接口路径: apiblog/api1.0/Blog/GetPostsByCategory/{categoryId}
+        接口路径: apiblog/api1.0/Blog/GetPostsByCategory/{categoryId}/{PageIndex?}
         请求方式: Get
         输入参数: 
             categoryId 类别编号 
@@ -205,7 +205,7 @@ namespace apiblog.Controllers
 
         /*
         接口简介: 获取Blog所有类别的接口
-        接口路径: apiblog/api1.0/Blog/GetCategories
+        接口路径: apiblog/api1.0/Blog/GetCategories/{PageIndex?}
         请求方式: Get
         输入参数: PageIndex 当前页数  起始从 1 开始
         接口返回: Json格式
@@ -268,7 +268,7 @@ namespace apiblog.Controllers
 
         /*
         接口简介: 按照Tag获取对应post信息
-        接口路径: apiblog/api1.0/Blog/GetPostByTag/{TagId}
+        接口路径: apiblog/api1.0/Blog/GetPostByTag/{TagId}/{PageIndex?}
         请求方式: Get
         输入参数: PageIndex 当前页数  起始从 1 开始
         接口返回: Json格式
@@ -373,7 +373,7 @@ namespace apiblog.Controllers
 
         /*
         接口简介: 按照文章Id获取文章信息，以及获取上一篇文章与下一篇的title和Id
-        接口路径: apiblog/api1.0/Blog/GetPostArticle
+        接口路径: apiblog/api1.0/Blog/GetPostArticle/{postId}
         请求方式: Get
         输入参数: postId 当前文章Id
         接口返回: Json格式
@@ -425,7 +425,59 @@ namespace apiblog.Controllers
                 dbModels.NextPost = new NeighborPost { Id = next.Id, PostTitle = next.PostTitle };
             else
                 dbModels.NextPost = null;
+            
+            dbModels.PostAutograph = db.BlogConfigs.Single().PostAutograph;
+
             return new ResultData{ Status = true,Data = dbModels };
+        }
+
+
+        /*
+        接口简介: 按时间获取 时间范围内的所有文章
+        接口路径: apiblog/api1.0/Blog/GetPostArticle/{year}/{month?}
+        请求方式: 
+        输入参数: Json格式
+            year 查询年份
+            month 查询月份
+        接口返回: Json格式
+        {
+            statue = true,   //业务逻辑是否成功 失败返回false
+            Data=List<DatePost_Model>     // 成功返回DatePost_Model集合 失败返回错误信息
+        }
+        */
+        
+        [Route("GetPostsByDate/{year}/{month?}")]
+        [HttpGet]
+        public ResultData GetPostsByDate(int year,int? month)
+        {
+            var dtStart = new DateTime(year,1,1,0,0,0);
+            DateTime dtEnd = DateTime.Now;
+            if(month==null)
+                dtEnd = new DateTime(year,12,31,23,59,59);
+            else
+            {
+                dtEnd = dtStart.AddMonths(1);
+                dtEnd = dtEnd.AddDays(-1);
+                dtEnd = new DateTime(year,Convert.ToInt32(month),dtEnd.Day,23,59,59);
+            }
+            long dts = UnixTimeHelper.FromDateTime(dtStart);
+            long dte = UnixTimeHelper.FromDateTime(dtEnd);
+            var dbModels = (from post in db.Posts 
+                            join c in db.PostCategories
+                            on post.PostCategoryId equals c.Id
+                            where post.PostTime>=dts && post.PostTime<=dte
+                            orderby post.PostTime descending
+                            select new DatePost_Model
+                            {
+                                Id = post.Id,
+                                PostTitle = post.PostTitle,
+                                PostDesc = post.PostDescription,
+                                PostTime = post.PostTime,
+                                PostCategoryId = c.Id,
+                                PostCategory = c.CategoryName
+                            }).ToList();
+            var posts = new DatePosts_Model { Posts = dbModels,Year = year, Month = (month==null?-1:Convert.ToInt32(month)) };
+            return new ResultData{ Status = true,Data = posts };
         }
     }
 }

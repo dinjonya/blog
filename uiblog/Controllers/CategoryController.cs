@@ -28,8 +28,10 @@ namespace uiblog.Controllers
         }
 
         
-        public IActionResult Post(int q1,int? q2)
+        public IActionResult Post(int? q1,int? q2)
         {
+            if(q1==null && q2==null)
+                return RedirectPermanent("/Home/Index"); 
             Object result = null;
             if(q2==null)
                 result = ApiHelper.GetWebApi<ApiResultModel>(

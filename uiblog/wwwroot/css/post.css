@@ -8,6 +8,7 @@
     .ArticleNeightborProvious{display: block;}
     .ArticleNeightborNext{display: block;}
     .ArticleNeightbor a:link,.ArticleNeightbor a:visited,.ArticleNeightbor a:hover{color:#888;text-decoration:none; }
+    .ArticleFooter{ margin-bottom: 20px; }
 }
 /*  iphone6 */
 @media only screen and (min-width: 375px) {

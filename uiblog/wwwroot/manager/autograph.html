@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>OdinSam后台管理</title>
+    <title>文章签名 管理</title>
     <link rel="stylesheet" href="/css/index.all.css" />
     <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    
+    <script>
+        
+    </script>
 </head>
 <body>
     <!--    page header nav start   -->
@@ -15,7 +19,7 @@
         <div class="container">
             <!--    header logo start   -->
             <a href="/manager/index.html">
-                <h2 class="nav-title">OdinSam后台管理</h2>
+                <h2 class="nav-title">文章签名 管理</h2>
             </a>
             <!--    header logo end   -->
         </div>
@@ -26,14 +30,10 @@
 
     <!--    page main start -->
     <div class="main">
-        <div><a target="_blank" href="/">首页</a></div>
-        <div><a href="/manager/title.html">标题修改</a></div>
-        <div><a href="/manager/category.html">分类管理</a></div>
-        <div><a href="/manager/tag.html">标签管理</a></div>
-        <div><a href="/manager/addarticle.html">添加文章</a></div>
-        <div><a href="/manager/article.html">文章管理</a></div>
-        <div><a href="/manager/about.html">about修改</a></div>
-        <div><a href="/manager/autograph.html">文章签名修改</a></div>
+        <textarea id="editor1" name="editor" style="min-height:700px;" placeholder="Enter your Information here...">
+    
+        </textarea>
+        <div><input type="button" id="btnSubmit" value="提交保存" /></div>
     </div>
     <!--    page main end -->
 
@@ -46,15 +46,18 @@
     <!--    page footer end -->
 
     <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/js/tinymce/tinymce.min.js"></script>
     <script src="/js/js.cookie.js"></script>
     <script src="/js/jquery.ajax.dinjonya.js"></script>
     <script src="/js/ajax.url.js"></script>
     <script src="/js/app.js"></script>
     <script src="/js/manage.index.js"></script>
+    <script src="/js/manage.autograph.js"></script>
     <script>
         $(function(){
             App.init();
             ManageIndex.init();
+            ManageAutograph.init();
         })
     </script>
 </body>

@@ -1,0 +1,93 @@
+@using BlogModels.UiModel
+@using CorePlugs20.TimeHelper
+@model DatePosts_Model
+@{
+    if(Model.Month==-1){
+        ViewData["Title"] = @Html.Raw($"{Model.Year}年的文章");
+    }
+    else
+    {
+        ViewData["Title"] = @Html.Raw($"{Model.Year}年{Model.Month}月的文章");
+    }
+    
+    if(Model.Month==-1){
+        ViewData["Description"] = @Html.Raw($"OdinSam博客{Model.Year}年的所有文章");
+    }
+        
+    else{
+        ViewData["Description"] = @Html.Raw($"OdinSam博客{Model.Year}年{Model.Month}月的所有文章");
+    }
+    if(Model.Month==-1){
+        ViewData["Keywords"] = @Html.Raw($"日期分类,{Model.Year}年,博客");
+    }
+    else{
+        ViewData["Keywords"] = @Html.Raw($"日期分类,{Model.Year}年,{Model.Month}月,博客");
+    }
+}
+
+@section Styles{
+    <link rel="stylesheet" href="/css/index.all.css" />
+}
+@section Scripts{
+    <script src="/js/index.js"></script>
+    <script>
+        $(function(){
+            //Index.init();
+        })
+    </script>
+}
+<!--    post section start -->
+<section class="posts section">
+    <!-- page posts -->
+    @{
+        /*Post 显示*/
+        foreach(var post in Model.Posts){
+            var dt = UnixTimeHelper.FromUnixTime(post.PostTime);
+            <article class="post">
+            <header class="post-header">
+            <h2 class="post-title">
+            <a class="post-title-link" href="/blog/Post/Article/@(post.Id)">
+            @Html.Raw(post.PostTitle)
+            </a>
+            </h2>
+            <div class="post-meta">
+            <span class="post-time">
+            <span class="post-meta-item-icon">
+            <i class="fa fa-calendar-o"></i>
+            </span> 
+            <span class="post-meta-item-textdate">发表于</span>
+            <time title="Post created" datetime=""+ dt +""> 
+            <a href="/blog/date/Post/@(dt.Year)/@(dt.Month)" rel="index">@(dt.ToString("yyyy-MM-dd"))</a>
+            </time>
+            </span>
+            <span class="post-category">
+            <span class="post-meta-divider"> | </span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-folder-o"></i>
+            </span> 
+            <span class="post-meta-item-text">分类于</span> 
+            <span>
+            <a href="/blog/category/post/@(post.PostCategoryId)" rel="index">
+            <span itemprop="name">@Html.Raw(post.PostCategory)</span>
+            </a>
+            </span>
+            </span>
+            </div>
+            </header>
+            <div class="post-body">
+            @Html.Raw(post.PostDesc)
+            </div>
+            <div class="post-button text-center">
+            <a class="btn" href="/blog/Post/Article/@(post.Id)">
+            阅读全文 »
+            </a>
+            </div>
+            </article>
+        }
+    }
+</section>
+<!--    post section end -->
+
+<!--    post pagination start -->
+
+<!--    post pagination end -->

@@ -3,7 +3,7 @@
 @model Index_Model
 @{
     ViewData["Title"] = @Html.Raw("首页");
-    ViewData["Description"] = @Html.Raw("OdinSam博客专注于.Net、.Net Core、Asp.net Mvc的技术博客,记录项目开发、设计架构的点点滴滴!");
+    ViewData["Description"] = @Html.Raw("OdinSam的博客,专注于.Net、.Net Core、Asp.net Mvc的技术博客,记录项目开发、设计架构的点点滴滴!");
     ViewData["Keywords"] = @Html.Raw("博客,.Net,.Net Core,Asp.net Mvc");
 }
 @section Styles{
@@ -40,7 +40,7 @@
             </span> 
             <span class="post-meta-item-textdate">发表于</span>
             <time title="Post created" datetime=""+ dt +""> 
-            <a href="/blog/date/@(dt.Year)/@(dt.Month)" rel="index">@(dt.ToString("yyyy-MM-dd"))</a>
+            <a href="/blog/date/Post/@(dt.Year)/@(dt.Month)" rel="index">@(dt.ToString("yyyy-MM-dd"))</a>
             </time>
             </span>
             <span class="post-category">

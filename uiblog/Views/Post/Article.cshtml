@@ -33,17 +33,20 @@
     </span>
     <span>
         <i class="fa fa-clock-o"></i> 
-        <a href="/blog/date/@(Model.PostTime.Year)/@(Model.PostTime.Month)" rel="index">@(Model.PostTime.ToString("yyyy-MM-dd"))</a> 
+        <a href="/blog/date/Post/@(Model.PostTime.Year)/@(Model.PostTime.Month)" rel="index">@(Model.PostTime.ToString("yyyy-MM-dd"))</a> 
     </span>
 </div>
 <div class="ArticleContent">
     @Html.Raw(Model.PostContent)
 </div>
+<div class="ArticleFooter">
+    @Html.Raw(Model.PostAutograph)
+</div>
 <div class="ArticleTag">
     <span>
         <i class="fa fa-tags"></i> 标签:
         @foreach(var t in Model.Tags){
-            <span> <a href="/blog/Tag/post/@(t.Id)"> @Html.Raw(t.TagName) </a></span>
+            <span><a href="/blog/Tag/post/@(t.Id)">@Html.Raw(t.TagName)</a></span> 
         }
     </span>
 </div>

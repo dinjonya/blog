@@ -59,6 +59,11 @@
                 "ApiName":"GetPostArticle",
                 "Uri":"http://127.0.0.1:18080/",
                 "UriPath":"apiblog/api1.0/Blog/GetPostArticle/"
+            },
+            {
+                "ApiName":"GetPostsByDate",
+                "Uri":"http://127.0.0.1:18080/",
+                "UriPath":"apiblog/api1.0/Blog/GetPostsByDate/"
             }
         ]
     },

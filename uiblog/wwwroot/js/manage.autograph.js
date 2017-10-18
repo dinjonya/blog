@@ -2,38 +2,41 @@
 //tinyMCE.activeEditor.setContent("<p>一个<b>文</b>字</p>")
 //get content 
 //tinyMCE.activeEditor.setContent(data.Message);
-var ManageAbout = function(){
-    var loadAboutContent = function(){
+var ManageAutograph = function(){
+
+    var loadAutographContent = function(){
         jqAjax.ajax({
-            url:App.ajaxUri.Manager.SelectAbout.Uri+Math.random(),
-            method:App.ajaxUri.Manager.SelectAbout.Method,
+            url:App.ajaxUri.Manager.SelectAutograph.Uri+Math.random(),
+            method:App.ajaxUri.Manager.SelectAutograph.Method,
             success:function(data){
                 tinyMCE.activeEditor.setContent(data.Message);
             }
         });
     }
-    var handleSelectAboutContent = function() {
+
+    var handleSelectAutographContent = function() {
         if(Cookies.get("cv")==undefined || Cookies.get("ct")==undefined)
             window.location.href = "/index.html";
-        loadAboutContent();
+        loadAutographContent();
     }
 
-    var handleSubmitAboutContent=function(){
+    var handleSubmitAutographContent=function(){
         if(Cookies.get("cv")==undefined || Cookies.get("ct")==undefined)
             window.location.href = "/index.html";
         $("#btnSubmit").click(function(){
             var aboutContent = tinyMCE.activeEditor.getContent();
-            aboutContent = aboutContent.replace(/src="../images/upload/g,"src=\"/images/upload");
+            aboutContent = aboutContent.replace(/..\/images\/upload/g,"/images/upload");
+            console.log(aboutContent)
             jqAjax.ajax({
-                url:App.ajaxUri.Manager.UpdateAbout.Uri,
-                method:App.ajaxUri.Manager.UpdateAbout.Method,
+                url:App.ajaxUri.Manager.UpdateAutograph.Uri,
+                method:App.ajaxUri.Manager.UpdateAutograph.Method,
                 data:JSON.stringify({
                     "content":aboutContent
                 }),
                 success:function(data){
                     if(data.Message=="ok"){
                         alert("修改成功");
-                        loadAboutContent();
+                        loadAutographContent();
                     }
                 }
             });
@@ -68,15 +71,14 @@ var ManageAbout = function(){
                     return;
                   }
                   json = JSON.parse(xhr.responseText);
+                  
                   if (!json || typeof json.location != 'string') {
                     failure('Invalid JSON: ' + xhr.responseText);
                     return;
                   }
-                  console.log(json);
                   success(json.location);
                 };
                 formData = new FormData();
-                console.log(blobInfo.name());
                 formData.append('file', blobInfo.blob(), blobInfo.name());
                 xhr.send(formData);
             },
@@ -103,9 +105,9 @@ var ManageAbout = function(){
 
     return{
         init:function(){
-            handleSelectAboutContent();
+            handleSelectAutographContent();
             handleTinymceInit();
-            handleSubmitAboutContent();
+            handleSubmitAutographContent();
         }
     }
     

@@ -380,6 +380,80 @@ namespace apiblog.Controllers
         }
 
 
+
+        /*
+        接口简介: 获取Blog 文章签名 的内容
+        接口路径: apiblog/api1.0/BlogManager/SelectAutograph/{rnd}
+        请求方式: Get
+        输入参数: rnd 防缓存随机参数
+        接口返回: Json格式
+        {
+            Status = true,  //业务成功还是 失败
+            Data = new { Data = new { Message = dbModel.PostAutograph } }  //成功about me的内容，失败返回信息  
+        }
+        */
+        [EnableCors("AllowSpecificOrigin")]
+        [Route("SelectAutograph/{rnd}")]
+        [HttpGet]
+        public ResultData SelectAutograph(string rnd)
+        {
+            //验证身份
+            var result = Authen("SelectAutograph");
+            if(!result.Status)
+                return result;
+            else
+            {
+                var dbModel = db.BlogConfigs.FirstOrDefault();
+                if(dbModel==null)
+                    return new ResultData { Status = false, Data = "没有Blog配置文件，请联系管理员  -- 0xSelectAutograph01" };
+                return new ResultData { Status = true, Data = new { Message = dbModel.PostAutograph } };
+            }
+        }
+
+
+        /*
+        接口简介: 更新 文章签名 的信息
+        接口路径: apiblog/api1.0/BlogManager/UpdateAutograph
+        请求方式: Put
+        输入参数: Json格式
+        {
+            "content":"文章签名 的内容"
+        }
+        接口返回: Json格式
+        {
+            Status = true,  //业务成功还是 失败
+            Data = new { Data = new { Message = "ok" } }  //成功返回ok，失败 Data 返回信息  
+        }
+        */
+        [EnableCors("AllowSpecificOrigin")]
+        [Route("UpdateAutograph")]
+        [HttpPut]
+        public ResultData UpdateAutograph()
+        {
+            var result = Authen("UpdateAutograph");
+            
+            if(!result.Status)
+                return result;
+            else
+            {
+                var dbModel = db.BlogConfigs.SingleOrDefault();
+                if(dbModel==null)
+                    return new ResultData { Status = false, Data = "没有Blog配置文件，请联系管理员  -- 0xUpdateAutograph01" };
+                string strParam = this.RouteData.Values["paramStr"].ToString();
+                var autograph = JObject.Parse(strParam).GetValue("content").ToString();
+                dbModel.PostAutograph = autograph;
+                db.Entry<BlogConfig_DbModel>(dbModel).State = EntityState.Modified;
+                int i = db.SaveChanges();
+                
+                if(i>0)
+                    return new ResultData { Status = true, Data = new { Message = "ok" } };
+                else
+                    return new ResultData { Status = false, Data = "更新文章签名失败，请联系管理员  -- 0xUpdateAutograph02" };
+                    
+            }
+        }
+
+
         /*
         接口简介: 获取Tag的所有信息
         接口路径: apiblog/api1.0/BlogManager/GetAllTags
@@ -530,7 +604,7 @@ namespace apiblog.Controllers
                     PostContent = postContent,
                     PostCategoryId = categoryId,
                     Tags = tags,
-                    PostTime = UnixTimeHelper.FromDateTime(DateTime.Now).ToString(),
+                    PostTime = UnixTimeHelper.FromDateTime(DateTime.Now),
                     PostPageDescription = des,
                     PostPageKeywords = kw
                 };

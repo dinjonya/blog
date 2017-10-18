@@ -65,6 +65,6 @@ namespace apiblog.Models
         /// </summary>
         /// <returns></returns>
         [StringLength(32)]
-        public string PostTime { get; set; }
+        public long PostTime { get; set; }
     }
 }

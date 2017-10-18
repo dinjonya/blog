@@ -27,6 +27,7 @@ namespace uiblog
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             services.AddMvc(options => options.Filters.Add(new ApiFilterAttribute(Program.AuthenInfo)));
+            services.AddMvc(options => options.Filters.Add(new UiExceptionFilterAttribute()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,7 +51,7 @@ namespace uiblog
             {
                 routes.MapRoute(
                     name: "category",
-                    template: "blog/{controller}/{action=Post}/{q1}/{q2?}/{q3?}");
+                    template: "blog/{controller}/{action=Post}/{q1?}/{q2?}/{q3?}");
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

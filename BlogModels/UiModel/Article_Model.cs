@@ -19,6 +19,8 @@ namespace BlogModels.UiModel
 
         public NeighborPost NextPost { get; set; }
 
+        public string PostAutograph { get; set; }
+
     }
 
     public class NeighborPost
