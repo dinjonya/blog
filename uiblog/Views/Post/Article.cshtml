@@ -9,6 +9,7 @@
 @section Styles{
     <link rel="stylesheet" href="/css/index.all.css" />
     <link rel="stylesheet" href="/css/post.css" />
+    <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet">  
 }
 @section Scripts{
     <script src="/js/showdown.min.js"></script>
@@ -17,6 +18,8 @@
     <script src="/js/underscore-min.js"></script>
     <script src="/js/sequence-diagram-min.js"></script>
     <script src="/js/markdown.Convert.js"></script>
+    <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>  
+    <script >hljs.initHighlightingOnLoad();</script>  
     <script>
         $(function() {
             markDown.init();
